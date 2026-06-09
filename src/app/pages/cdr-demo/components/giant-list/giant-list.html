@@ -1,0 +1,10 @@
+<div class="example-box">
+  <ul>
+    @for (item of dataProvider.data; track item) {
+      <li>Item {{ item }}</li>
+    }
+  </ul>
+
+  <p class="meta">Последняя проверка: <strong>{{ lastCheck }}</strong></p>
+  <p class="meta">Чтений data: <strong>{{ dataProvider.readCount }}</strong></p>
+</div>

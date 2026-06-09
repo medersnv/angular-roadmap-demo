@@ -1,0 +1,23 @@
+<h3>Дочерний компонент</h3>
+
+<p>user.name = <strong>{{ user.name }}</strong></p>
+
+<div class="projected">
+  <ng-content />
+</div>
+
+<h4>Журнал хуков</h4>
+<ul class="log">
+  @for (entry of log; track $index) {
+    <li>
+      <code>{{ entry.hook }}</code>
+      @if (entry.info) {
+        <span> — {{ entry.info }}</span>
+      }
+    </li>
+  }
+</ul>
+
+<p class="hint">
+  ngDoCheck, ngAfterContentChecked, ngAfterViewChecked, afterEveryRender — смотри консоль браузера.
+</p>

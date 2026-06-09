@@ -1,0 +1,40 @@
+<h2>Providers</h2>
+<p class="intro">
+  Provider связывает <code>token</code> с реализацией. Ниже — все основные виды провайдеров
+  в одном интерактивном блоке.
+</p>
+
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
+
+<table class="info-table">
+  <thead>
+    <tr>
+      <th>Тип</th>
+      <th>Назначение</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (row of providerTypes; track row.type) {
+      <tr>
+        <td><code>{{ row.type }}</code></td>
+        <td>{{ row.summary }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<section class="example-section">
+  <h3 class="section-title">Интерактив: все провайдеры вместе</h3>
+  <pre class="code-block"><code>{{ setupCode }}</code></pre>
+  <p class="example-hint">Нажми LOGGER.log — useExisting вернёт тот же экземпляр, что useClass.</p>
+
+  <app-providers-playground />
+
+  <h3 class="section-title section-title-sub">useClass — подмена реализации</h3>
+  <p class="example-desc">Отдельный компонент регистрирует FileLogger на тот же token LOGGER.</p>
+  <app-providers-use-class-swap />
+</section>

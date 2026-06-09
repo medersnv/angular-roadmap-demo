@@ -1,0 +1,14 @@
+<div class="child child-onpush">
+  <h4>OnPush</h4>
+  <p>user.name = <strong>{{ user.name }}</strong></p>
+  <p class="hint">Обновляется при новой ссылке @Input, событии в шаблоне или markForCheck()</p>
+
+  <div class="btn-row">
+    <button type="button" class="local-btn" (click)="onLocalClick()">
+      Клик внутри OnPush ({{ localClicks }})
+    </button>
+    <button type="button" class="local-btn" (click)="markForCheck()">
+      markForCheck()
+    </button>
+  </div>
+</div>

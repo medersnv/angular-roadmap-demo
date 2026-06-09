@@ -1,0 +1,45 @@
+.child {
+  padding: 0.85rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+
+  h4 {
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  p {
+    margin: 0 0 0.35rem;
+  }
+}
+
+.child-onpush {
+  border: 1px solid #bbdefb;
+  background: #f0f6ff;
+}
+
+.hint {
+  font-size: 0.75rem;
+  color: #777;
+}
+
+.local-btn {
+  padding: 0.35rem 0.65rem;
+  border: 1px solid #90caf9;
+  border-radius: 0.25rem;
+  background: #fff;
+  cursor: pointer;
+  font-size: 0.8rem;
+
+  &:hover {
+    background: #e3f2fd;
+  }
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.65rem;
+}
+

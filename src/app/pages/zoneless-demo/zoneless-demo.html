@@ -1,0 +1,73 @@
+<h2>Zoneless Change Detection</h2>
+<p class="intro">
+  Без zone.js Angular не запускает CD после каждого async-callback.
+  Режим CD задаётся в <code>app.config.ts</code> — раскомментируй <code>provideZonelessChangeDetection()</code>
+  и закомментируй Zone.js, затем перезагрузи страницу.
+</p>
+
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
+
+<h3 class="section-title">Bootstrap</h3>
+<pre class="code-block"><code>{{ bootstrapCode }}</code></pre>
+
+<h3 class="section-title">Что запускает CD в zoneless</h3>
+<table class="info-table">
+  <thead>
+    <tr>
+      <th>Триггер</th>
+      <th>Работает?</th>
+      <th>Пояснение</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of triggers; track item.trigger) {
+      <tr>
+        <td>{{ item.trigger }}</td>
+        <td>
+          @if (item.works) {
+            <span class="badge badge-ok">да</span>
+          } @else {
+            <span class="badge badge-no">нет</span>
+          }
+        </td>
+        <td>{{ item.summary }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<section class="compare-section">
+  <h3 class="section-title">Сравнение: Zone vs Zoneless (одновременно)</h3>
+  <p class="example-desc">
+    Три колонки стартуют вместе. Слева — поведение с Zone.js; справа — как в zoneless-приложении.
+  </p>
+  <app-zone-vs-zoneless />
+</section>
+
+@for (example of examples; track example.id) {
+  <section class="example-section">
+    <h3 class="section-title">{{ example.title }}</h3>
+    <p class="example-desc">{{ example.description }}</p>
+    <pre class="code-block code-block-sm"><code>{{ example.code }}</code></pre>
+    <p class="example-hint">{{ example.hint }}</p>
+
+    @switch (example.id) {
+      @case ('signal') {
+        <app-zoneless-signal-counter />
+      }
+      @case ('async-pipe') {
+        <app-zoneless-async-message />
+      }
+      @case ('no-trigger') {
+        <app-zoneless-no-trigger />
+      }
+      @case ('mark-for-check') {
+        <app-zoneless-mark-for-check />
+      }
+    }
+  </section>
+}

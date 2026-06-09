@@ -1,0 +1,58 @@
+<h2>ChangeDetectorRef</h2>
+<p class="intro">
+  Базовый класс для ручного управления change detection. Ниже — три примера из
+  <a href="https://angular.dev/api/core/ChangeDetectorRef" target="_blank" rel="noopener">документации Angular</a>.
+</p>
+
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
+
+<table class="info-table">
+  <thead>
+    <tr>
+      <th>Метод</th>
+      <th>Что делает</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of methods; track item.method) {
+      <tr>
+        <td><code>{{ item.method }}</code></td>
+        <td>{{ item.summary }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@for (example of examples; track example.id) {
+  <section class="example-section">
+    <h3 class="section-title">{{ example.title }}</h3>
+    <p class="example-desc">{{ example.description }}</p>
+
+    @if (example.useCases?.length) {
+      <p class="use-cases-label">Где применять:</p>
+      <ul class="use-cases">
+        @for (task of example.useCases; track task) {
+          <li>{{ task }}</li>
+        }
+      </ul>
+    }
+
+    <p class="example-hint">{{ example.hint }}</p>
+
+    @switch (example.id) {
+      @case ('mark-for-check') {
+        <app-cdr-mark-for-check-ticks />
+      }
+      @case ('detach-detect') {
+        <app-cdr-giant-list />
+      }
+      @case ('detach-reattach') {
+        <app-cdr-live-data-demo />
+      }
+    }
+  </section>
+}

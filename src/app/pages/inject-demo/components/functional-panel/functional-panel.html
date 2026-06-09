@@ -1,0 +1,9 @@
+<div class="panel panel-functional">
+  <p>Auth: <strong>{{ authStatus }}</strong></p>
+  <p>Guard: <strong>{{ guardResult }}</strong></p>
+
+  <div class="btn-row">
+    <button type="button" class="demo-btn" (click)="toggleAuth()">Toggle login</button>
+    <button type="button" class="demo-btn demo-btn-accent" (click)="runGuard()">Запустить guard</button>
+  </div>
+</div>

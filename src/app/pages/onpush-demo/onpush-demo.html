@@ -1,0 +1,94 @@
+<h2>OnPush Change Detection</h2>
+<p class="intro">
+  Сравни имя в родителе и в двух дочерних компонентах. Ниже — ещё примеры с async pipe и signal.
+</p>
+
+<section class="note">
+  <h3>{{ comparison.title }}</h3>
+  <ul>
+    @for (point of comparison.points; track point.label) {
+      <li>
+        <strong>{{ point.label }}</strong> — {{ point.text }}
+      </li>
+    }
+  </ul>
+</section>
+
+<table class="info-table">
+  <thead>
+    <tr>
+      <th>Стратегия</th>
+      <th>Описание</th>
+      <th>Когда использовать</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of strategies; track item.strategy) {
+      <tr>
+        <td><code>{{ item.strategy }}</code></td>
+        <td>{{ item.summary }}</td>
+        <td>{{ item.whenToUse }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<h3 class="section-title">Лучшие практики</h3>
+<ul class="practices">
+  @for (item of bestPractices; track item.title) {
+    <li>
+      <strong>{{ item.title }}</strong> — {{ item.description }}
+    </li>
+  }
+</ul>
+
+<h3 class="section-title">Пример 1: @Input</h3>
+
+<section class="parent-box">
+  <p>Родитель: user.name = <strong>{{ user.name }}</strong></p>
+
+  <div class="actions">
+    <button type="button" (click)="mutateName()">Изменить имя (мутация)</button>
+    <button type="button" (click)="replaceUser()">Новый объект</button>
+    <button type="button" (click)="reset()">Сбросить</button>
+  </div>
+</section>
+
+<ul class="hints">
+  <li><strong>Изменить имя</strong> — родитель и Default покажут «Алекс», OnPush останется на старом имени (ссылка @Input та же)</li>
+  <li><strong>markForCheck()</strong> в OnPush — после мутации вручную помечает компонент; имя обновится без нового объекта</li>
+  <li><strong>Новый объект</strong> — все трое обновятся (новая ссылка @Input)</li>
+  <li><strong>Клик внутри OnPush</strong> — тоже запускает проверку этого компонента (как markForCheck через событие)</li>
+</ul>
+
+<div class="children">
+  <app-default-child [user]="user" />
+  <app-onpush-child [user]="user" />
+</div>
+
+<h3 class="section-title">Пример 2: async pipe</h3>
+
+<section class="parent-box">
+  <p>Родитель шлёт Observable — ссылка на поток не меняется, меняются только значения внутри.</p>
+
+  <div class="actions">
+    <button type="button" (click)="nextMessage()">Следующее сообщение</button>
+    <button type="button" (click)="resetMessage()">Сбросить</button>
+  </div>
+</section>
+
+<ul class="hints">
+  <li><strong>Следующее сообщение</strong> — родитель вызывает <code>subject.next(...)</code>, @Input тот же</li>
+  <li>OnPush всё равно обновляется — <code>| async</code> помечает компонент для проверки</li>
+</ul>
+
+<app-onpush-async-child [message$]="message$" />
+
+<h3 class="section-title">Пример 3: signal</h3>
+
+<ul class="hints">
+  <li>Signal меняется внутри OnPush-компонента — шаблон обновляется без нового @Input</li>
+  <li>Angular отслеживает signal сам — подробнее про <code>markForCheck()</code> см. страницу CDR</li>
+</ul>
+
+<app-onpush-signal-child />

@@ -1,0 +1,62 @@
+<h2>Lifecycle Hooks</h2>
+<p class="intro">Справочник хуков и простой пример. Смотри журнал в дочернем компоненте и консоль браузера.</p>
+
+<section class="note">
+  <h3>{{ constructorVsNgOnInit.title }}</h3>
+  <ul>
+    @for (point of constructorVsNgOnInit.points; track point.label) {
+      <li>
+        <strong>{{ point.label }}</strong> — {{ point.text }}
+      </li>
+    }
+  </ul>
+</section>
+
+<table class="hooks-table">
+  <thead>
+    <tr>
+      <th>Фаза</th>
+      <th>Метод</th>
+      <th>Описание</th>
+      <th>Когда использовать</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (hook of hooks; track hook.method) {
+      <tr>
+        <td>{{ hook.phase }}</td>
+        <td><code>{{ hook.method }}</code></td>
+        <td>{{ hook.summary }}</td>
+        <td>{{ hook.whenToUse }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<div class="actions">
+  <button type="button" (click)="changeName()">Изменить имя</button>
+  <button type="button" (click)="replaceUser()">Новый объект</button>
+  <button type="button" (click)="destroy()" [disabled]="!visible">Удалить компонент</button>
+  <button type="button" (click)="recreate()">Создать снова</button>
+</div>
+
+<ul class="hints">
+  <li><strong>Изменить имя</strong> — меняет поле объекта, ngOnChanges не вызовется</li>
+  <li><strong>Новый объект</strong> — новая ссылка, вызовется ngOnChanges</li>
+  <li><strong>Удалить компонент</strong> — вызовется ngOnDestroy, компонент исчезнет</li>
+</ul>
+
+@if (visible) {
+  <app-child [user]="user" (destroyed)="onDestroyed($event)">
+    <em>Спроецированный контент через ng-content</em>
+  </app-child>
+} @else {
+  <div class="destroyed">
+    <p>Компонент удалён. Последний журнал:</p>
+    <ul>
+      @for (entry of lastLog; track $index) {
+        <li><code>{{ entry.hook }}</code>@if (entry.info) { — {{ entry.info }} }</li>
+      }
+    </ul>
+  </div>
+}

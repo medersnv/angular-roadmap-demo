@@ -1,0 +1,30 @@
+.example-box {
+  padding: 0.85rem 1rem;
+  border: 1px solid #bbdefb;
+  border-radius: 0.375rem;
+  background: #f0f6ff;
+  font-size: 0.875rem;
+
+  p {
+    margin: 0 0 0.65rem;
+  }
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.demo-btn {
+  padding: 0.35rem 0.65rem;
+  border: 1px solid #90caf9;
+  border-radius: 0.25rem;
+  background: #fff;
+  cursor: pointer;
+  font-size: 0.8rem;
+
+  &:hover {
+    background: #e3f2fd;
+  }
+}

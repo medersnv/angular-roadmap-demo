@@ -1,0 +1,10 @@
+<label class="live-toggle">
+  <input
+    type="checkbox"
+    [checked]="live()"
+    (change)="onLiveChange($event)"
+  />
+  Live Update
+</label>
+
+<app-cdr-live-data [live]="live()" />

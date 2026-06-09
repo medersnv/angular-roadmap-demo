@@ -1,0 +1,23 @@
+<div class="compare">
+  <article class="panel panel-zone">
+    <h4>setInterval + поле</h4>
+    <p class="value">count = <strong>{{ zoneCount }}</strong></p>
+    <p class="hint">с Zone.js растёт; в zoneless — застынет (нет триггера)</p>
+  </article>
+
+  <article class="panel panel-zoneless">
+    <h4>runOutsideAngular</h4>
+    <p class="value">count = <strong>{{ zonelessPlainCount }}</strong></p>
+    <p class="hint">поле вне Zone → UI не растёт</p>
+  </article>
+
+  <article class="panel panel-signal">
+    <h4>signal</h4>
+    <p class="value">count = <strong>{{ zonelessSignalCount() }}</strong></p>
+    <p class="hint">signal → UI растёт в любом режиме</p>
+  </article>
+</div>
+
+<p class="compare-note">
+  Режим задаётся в <code>app.config.ts</code> — раскомментируй нужный provider и перезагрузи приложение.
+</p>

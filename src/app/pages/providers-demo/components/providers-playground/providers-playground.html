@@ -1,0 +1,38 @@
+<div class="playground">
+  <table class="results-table">
+    <tbody>
+      <tr>
+        <th>useValue + InjectionToken</th>
+        <td><code>API_URL</code> = {{ apiUrl }}</td>
+      </tr>
+      <tr>
+        <th>useValue (объект)</th>
+        <td><code>APP_CONFIG</code> = theme: {{ config.theme }}, debug: {{ config.debug }}</td>
+      </tr>
+      <tr>
+        <th>useClass</th>
+        <td><code>LOGGER</code> → ConsoleLogger</td>
+      </tr>
+      <tr>
+        <th>useExisting</th>
+        <td><code>LOGGER_ALIAS</code> === LOGGER: <strong>{{ sameInstance ? 'да' : 'нет' }}</strong></td>
+      </tr>
+      <tr>
+        <th>useFactory</th>
+        <td><code>APP_VERSION</code> = {{ version }}</td>
+      </tr>
+      <tr>
+        <th>multi: true</th>
+        <td>
+          <code>PLUGINS</code>:
+          @for (plugin of plugins; track plugin.name) {
+            <span class="tag">{{ plugin.name }}</span>
+          }
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button type="button" class="demo-btn" (click)="testLogger()">LOGGER.log('Hello DI')</button>
+  <p class="log-out">Результат: <strong>{{ logResult }}</strong></p>
+</div>

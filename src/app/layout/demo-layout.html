@@ -1,0 +1,36 @@
+<div class="layout">
+  <aside class="sidebar">
+    <header class="sidebar-header">
+      <span class="logo">A</span>
+      <div>
+        <h1>Angular Internals</h1>
+        <p>Interactive demos</p>
+      </div>
+    </header>
+
+    <nav class="sidebar-nav">
+      @for (group of navGroups; track group.name) {
+        <section class="nav-group">
+          <h2>{{ group.name }}</h2>
+          <ul>
+            @for (item of group.items; track item.path) {
+              <li>
+                <a
+                  [routerLink]="item.path"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                >
+                  {{ item.label }}
+                </a>
+              </li>
+            }
+          </ul>
+        </section>
+      }
+    </nav>
+  </aside>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>

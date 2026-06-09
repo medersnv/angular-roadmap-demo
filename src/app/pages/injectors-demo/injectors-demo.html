@@ -1,0 +1,57 @@
+<h2>Иерархия инжекторов</h2>
+<p class="intro">
+  Angular создаёт дерево инжекторов вместе с деревом компонентов.
+  <code>providedIn: 'root'</code> vs <code>providers</code> на компоненте — разные области видимости.
+</p>
+
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
+
+<table class="info-table">
+  <thead>
+    <tr>
+      <th>Способ</th>
+      <th>Экземпляры</th>
+      <th>Когда использовать</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (row of comparison; track row.scope) {
+      <tr>
+        <td><code>{{ row.scope }}</code></td>
+        <td>{{ row.instance }}</td>
+        <td>{{ row.when }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@for (example of examples; track example.id) {
+  <section class="example-section">
+    <h3 class="section-title">{{ example.title }}</h3>
+    <p class="example-desc">{{ example.description }}</p>
+    <pre class="code-block"><code>{{ example.code }}</code></pre>
+    <p class="example-hint">{{ example.hint }}</p>
+
+    @switch (example.id) {
+      @case ('root') {
+        <div class="row-two">
+          <app-root-scope-panel title="Компонент 1" />
+          <app-root-scope-panel title="Компонент 2" />
+        </div>
+      }
+      @case ('hierarchy') {
+        <app-injector-hierarchy-parent />
+      }
+      @case ('twins') {
+        <div class="row-two">
+          <app-injector-twin-a />
+          <app-injector-twin-b />
+        </div>
+      }
+    }
+  </section>
+}

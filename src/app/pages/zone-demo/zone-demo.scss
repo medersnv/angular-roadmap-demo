@@ -1,0 +1,117 @@
+h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.intro {
+  margin: 0 0 1rem;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.essentials {
+  margin: 0 0 1.25rem;
+  padding: 0.85rem 1rem 0.85rem 2rem;
+  background: #f1f8e9;
+  border: 1px solid #c8e6c9;
+  border-radius: 0.375rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.825rem;
+  margin-bottom: 1.25rem;
+
+  th,
+  td {
+    border: 1px solid #e0e0e0;
+    padding: 0.5rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background: #f5f5f5;
+    font-weight: 600;
+  }
+
+  td:first-child {
+    white-space: nowrap;
+  }
+
+  code {
+    font-weight: 600;
+    color: #1565c0;
+  }
+}
+
+.section-title {
+  margin: 0 0 0.35rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.code-block {
+  margin: 0 0 1rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.375rem;
+  background: #f8f8f8;
+  overflow-x: auto;
+  font-size: 0.75rem;
+  line-height: 1.5;
+
+  code {
+    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', monospace;
+    color: #333;
+    white-space: pre;
+  }
+}
+
+.code-block-sm {
+  margin-bottom: 0.5rem;
+}
+
+.example-section {
+  margin-bottom: 1.5rem;
+  max-width: 36rem;
+}
+
+.compare-section {
+  margin-bottom: 1.5rem;
+  max-width: 48rem;
+}
+
+.example-desc {
+  margin: 0 0 0.35rem;
+  font-size: 0.825rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.use-cases-label {
+  margin: 0 0 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.use-cases {
+  margin: 0 0 0.5rem;
+  padding-left: 1.25rem;
+  font-size: 0.8rem;
+  color: #555;
+  line-height: 1.55;
+}
+
+.example-hint {
+  margin: 0 0 0.65rem;
+  font-size: 0.75rem;
+  color: #777;
+  line-height: 1.5;
+}
