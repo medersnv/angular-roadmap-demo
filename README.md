@@ -96,8 +96,17 @@ Locally verified with **Node 24.14.0** and **Angular 20.3.x**.
 
 **Live:** [https://medersnv.github.io/angular-roadmap-demo/](https://medersnv.github.io/angular-roadmap-demo/)
 
-Первый раз включи в репозитории: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+### Первый запуск (обязательно)
 
-Ручной запуск: **Actions → Deploy to GitHub Pages → Run workflow**.
+Без этого шага deploy упадёт с **404 Failed to create deployment**:
+
+1. Открой [Settings → Pages](https://github.com/medersnv/angular-roadmap-demo/settings/pages)
+2. **Build and deployment → Source** → выбери **GitHub Actions** (не «Deploy from a branch»)
+3. Сохрани
+4. **Actions → Deploy to GitHub Pages → Run workflow**
+
+Репозиторий должен быть **Public** (на free-плане Pages для private repo недоступен).
+
+Ручной перезапуск: **Actions → Deploy to GitHub Pages → Run workflow**.
 
 Сгенерировано с [Angular CLI](https://github.com/angular/angular-cli) 20.3.27.
