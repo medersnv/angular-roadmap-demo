@@ -4,11 +4,23 @@
       <span class="logo">A</span>
       <div>
         <h1>Angular Roadmap Demo</h1>
-        <p>Learning roadmap</p>
+        <p>Learning Angular</p>
       </div>
     </a>
 
     <nav class="sidebar-nav">
+      <a
+        routerLink="/artifacts"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-artifacts"
+      >
+        <span class="nav-artifacts-text">
+          <span class="nav-artifacts-label">Артефакты</span>
+          <span class="nav-artifacts-subtitle">Файлы презентаций</span>
+        </span>
+      </a>
+
       @for (group of navGroups; track group.name) {
         <section class="nav-group" [class.expanded]="isExpanded(group.name)">
           <button

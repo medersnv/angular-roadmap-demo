@@ -1,0 +1,83 @@
+<section class="artifacts">
+  <header class="page-header">
+    <p class="eyebrow">00 · Артефакты</p>
+    <h1>Файлы презентаций</h1>
+    <p class="lead">
+      Материалы из <code>public/artifacts/</code> по категориям курса. Скачивание и просмотр через
+      браузер.
+    </p>
+    @if (manifest(); as data) {
+      <p class="meta">
+        {{ totalFiles() }} файлов · обновлено {{ data.generatedAt | date: 'dd.MM.yyyy HH:mm' }}
+      </p>
+    }
+  </header>
+
+  @if (!manifest()) {
+    <p class="status">Загрузка списка файлов…</p>
+  } @else {
+    <div class="browser">
+      <aside class="categories">
+        <h2>Категории</h2>
+        <ul>
+          @for (category of categories(); track category.slug) {
+            <li>
+              <button
+                type="button"
+                class="category-btn"
+                [class.active]="selectedCategory()?.slug === category.slug"
+                (click)="selectCategory(category)"
+              >
+                <span class="category-order">{{ category.order === 0 ? '00' : category.order }}</span>
+                <span class="category-text">
+                  <span class="category-title">{{ category.title }}</span>
+                  <span class="category-count">{{ fileCount(category) }} файлов</span>
+                </span>
+              </button>
+            </li>
+          }
+        </ul>
+      </aside>
+
+      <div class="files-panel">
+        @if (selectedCategory(); as category) {
+          <header class="files-header">
+            <h2>{{ category.title }}</h2>
+            <p class="folder-path">/artifacts/{{ category.slug }}/</p>
+          </header>
+
+          @if (category.files.length === 0) {
+            <div class="empty">
+              <p>Папка пустая.</p>
+              <p class="hint">
+                Положи файлы в
+                <code>public/artifacts/{{ category.slug }}/</code> и выполни
+                <code>npm run artifacts:manifest</code>.
+              </p>
+            </div>
+          } @else {
+            <ul class="file-list">
+              @for (file of category.files; track file.url) {
+                <li class="file-row">
+                  <div class="file-icon" [attr.data-ext]="file.extension || 'file'">
+                    {{ file.extension || '?' }}
+                  </div>
+                  <div class="file-info">
+                    <p class="file-name">{{ file.relativePath }}</p>
+                    <p class="file-meta">
+                      {{ formatFileSize(file.size) }} · {{ file.updatedAt | date: 'dd.MM.yyyy' }}
+                    </p>
+                  </div>
+                  <div class="file-actions">
+                    <a [href]="file.url" target="_blank" rel="noopener noreferrer">Открыть</a>
+                    <a [href]="file.url" [download]="file.name">Скачать</a>
+                  </div>
+                </li>
+              }
+            </ul>
+          }
+        }
+      </div>
+    </div>
+  }
+</section>
