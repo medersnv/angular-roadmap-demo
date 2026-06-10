@@ -90,4 +90,14 @@ Locally verified with **Node 24.14.0** and **Angular 20.3.x**.
 | `npm test` | Unit-тесты (Karma) |
 | `npm run artifacts:manifest` | Обновить список файлов артефактов |
 
+## Deploy (GitHub Pages)
+
+При push в `main` срабатывает [GitHub Actions](.github/workflows/deploy.yml): сборка и публикация на **GitHub Pages**.
+
+**Live:** [https://medersnv.github.io/angular-roadmap-demo/](https://medersnv.github.io/angular-roadmap-demo/)
+
+Первый раз включи в репозитории: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+
+Ручной запуск: **Actions → Deploy to GitHub Pages → Run workflow**.
+
 Сгенерировано с [Angular CLI](https://github.com/angular/angular-cli) 20.3.27.
