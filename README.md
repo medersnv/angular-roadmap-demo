@@ -1,8 +1,72 @@
 # Angular Roadmap Demo
 
-Interactive learning app for the Angular team roadmap: live demos, sidebar navigation, and presentation guidelines.
+Интерактивная площадка для внутреннего обучения команды: **live-демо в коде**, навигация по roadmap, материалы презентаций и регламент выступлений (формула **30/70**).
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.27.
+## Для кого
+
+- **Frontend-разработчики** — углубление в Angular и смежные темы (не «как пользоваться API», а «как это работает под капотом»).
+- **Докладчики** — готовая структура презентации, демо-страницы и папки для артефактов.
+- **Team lead / архитекторы** — единый план роста команды от Core Internals до TypeScript, SSR, CI/CD и безопасности.
+
+## Что внутри
+
+| Раздел | Описание |
+|--------|----------|
+| **Демо-страницы** | 79 тем с отдельными компонентами и роутами; 8 уже с интерактивными примерами |
+| **Меню** | 29 категорий, сворачиваемые группы, переход по темам |
+| **Главная** | Регламент презентации 30/70 и ссылка на [таблицу курса](https://docs.google.com/spreadsheets/d/1kWj05y_PaSIm6NTS_q3P_vfjmyVYEov0n7HEyp7E5H8/edit?gid=986032517#gid=986032517) |
+| **Артефакты** | `/artifacts` — просмотр и скачивание PDF, слайдов и других файлов из `public/artifacts/` |
+
+## Темы (29 категорий)
+
+1. Angular Core Internals — lifecycle, change detection, Zone.js, DI  
+2. Signals (Modern Core)  
+3. RxJS (Deep Dive)  
+4. Standalone Architecture  
+5. Routing (Advanced)  
+6. State Management  
+7. Modern Control Flow  
+8. Deferrable Views  
+9. Performance Optimization  
+10. Forms (Advanced)  
+11. Rendering / SSR  
+12. Testing  
+13. Architecture & Monorepos  
+14. Design System  
+15. Frontend Setup & CI/CD  
+16. Performance Metrics  
+17. Client-Side Storage  
+18. Storage Security  
+19. JavaScript Core  
+20. Browser Rendering  
+21. HTTP / Networking  
+22. Advanced Security  
+23. Observability & Debugging  
+24. API Design & Contracts  
+25. Web Components  
+26. Accessibility (A11y)  
+27. Build Internals  
+28. AI-Native Dev  
+29. TypeScript (Advanced)  
+
+**Готовые демо (модуль 1):** Lifecycle Hooks, OnPush, ChangeDetectorRef, Zoneless, Zone.js, `inject()`, Injectors, Providers.
+
+Остальные темы — заглушки с роутом и компонентом; контент добавляется по мере прохождения курса.
+
+## Быстрый старт
+
+```bash
+npm install
+npm start
+```
+
+Открой [http://localhost:4200/](http://localhost:4200/).
+
+После добавления файлов в `public/artifacts/`:
+
+```bash
+npm run artifacts:manifest
+```
 
 ## Requirements
 
@@ -17,58 +81,13 @@ node -v
 
 Locally verified with **Node 24.14.0** and **Angular 20.3.x**.
 
-## Development server
+## Scripts
 
-To start a local development server, run:
+| Команда | Назначение |
+|---------|------------|
+| `npm start` | Dev-сервер (`http://localhost:4200`) |
+| `npm run build` | Production-сборка |
+| `npm test` | Unit-тесты (Karma) |
+| `npm run artifacts:manifest` | Обновить список файлов артефактов |
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Сгенерировано с [Angular CLI](https://github.com/angular/angular-cli) 20.3.27.
