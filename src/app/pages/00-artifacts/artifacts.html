@@ -1,6 +1,6 @@
 <section class="artifacts">
   <header class="page-header">
-    <p class="eyebrow">00 · Артефакты</p>
+    <p class="eyebrow">Артефакты</p>
     <h1>Файлы презентаций</h1>
     <p class="lead">
       Материалы из <code>public/artifacts/</code> по категориям курса. Скачивание и просмотр через
@@ -43,7 +43,7 @@
         @if (selectedCategory(); as category) {
           <header class="files-header">
             <h2>{{ category.title }}</h2>
-            <p class="folder-path">/artifacts/{{ category.slug }}/</p>
+            <p class="folder-path">{{ categoryFolderPath(category.slug) }}</p>
           </header>
 
           @if (category.files.length === 0) {
@@ -69,8 +69,8 @@
                     </p>
                   </div>
                   <div class="file-actions">
-                    <a [href]="file.url" target="_blank" rel="noopener noreferrer">Открыть</a>
-                    <a [href]="file.url" [download]="file.name">Скачать</a>
+                    <a [href]="resolvePublicAssetUrl(file.url)" target="_blank" rel="noopener noreferrer">Открыть</a>
+                    <a [href]="resolvePublicAssetUrl(file.url)" [download]="file.name">Скачать</a>
                   </div>
                 </li>
               }

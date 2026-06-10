@@ -3,11 +3,11 @@
 import { ArtifactsManifest } from './artifacts.types';
 
 export const ARTIFACTS_MANIFEST: ArtifactsManifest = {
-  "generatedAt": "2026-06-10T05:45:25.135Z",
+  "generatedAt": "2026-06-10T06:10:55.906Z",
   "categories": [
     {
       "order": 0,
-      "slug": "0-general",
+      "slug": "00-general",
       "title": "Общие материалы",
       "files": []
     },
@@ -19,7 +19,7 @@ export const ARTIFACTS_MANIFEST: ArtifactsManifest = {
         {
           "name": "Angular_Senior_Architecture.pdf",
           "relativePath": "Angular_Senior_Architecture.pdf",
-          "url": "/artifacts/01-angular-core-internals/Angular_Senior_Architecture.pdf",
+          "url": "artifacts/01-angular-core-internals/Angular_Senior_Architecture.pdf",
           "size": 15128897,
           "extension": "pdf",
           "updatedAt": "2026-06-09T12:33:24.276Z"

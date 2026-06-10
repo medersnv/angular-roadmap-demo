@@ -36,7 +36,7 @@ function collectFiles(dir, baseDir) {
     files.push({
       name: entry.name,
       relativePath,
-      url: `/artifacts/${path.relative(artifactsRoot, fullPath).split(path.sep).join('/')}`,
+      url: `artifacts/${path.relative(artifactsRoot, fullPath).split(path.sep).join('/')}`,
       size: stat.size,
       extension: path.extname(entry.name).slice(1).toLowerCase(),
       updatedAt: stat.mtime.toISOString(),

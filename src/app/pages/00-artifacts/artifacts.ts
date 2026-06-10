@@ -3,7 +3,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 
-import { ArtifactsService, formatFileSize } from '../../artifacts/artifacts.service';
+import { ArtifactsService, formatFileSize, resolvePublicAssetUrl } from '../../artifacts/artifacts.service';
 import { ArtifactCategory } from '../../artifacts/artifacts.types';
 
 @Component({
@@ -17,6 +17,7 @@ export class Artifacts {
   private readonly artifactsService = inject(ArtifactsService);
 
   protected readonly formatFileSize = formatFileSize;
+  protected readonly resolvePublicAssetUrl = resolvePublicAssetUrl;
   protected readonly manifest = toSignal(this.artifactsService.getManifest(), {
     initialValue: null,
   });
@@ -53,5 +54,9 @@ export class Artifacts {
 
   protected fileCount(category: ArtifactCategory): number {
     return category.files.length;
+  }
+
+  protected categoryFolderPath(slug: string): string {
+    return resolvePublicAssetUrl(`artifacts/${slug}/`);
   }
 }

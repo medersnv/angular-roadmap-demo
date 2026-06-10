@@ -96,6 +96,11 @@ Locally verified with **Node 24.14.0** and **Angular 20.3.x**.
 
 **Live:** [https://medersnv.github.io/angular-roadmap-demo/](https://medersnv.github.io/angular-roadmap-demo/)
 
+Файлы артефактов (PDF и др.):  
+`https://medersnv.github.io/angular-roadmap-demo/artifacts/01-angular-core-internals/Angular_Senior_Architecture.pdf`
+
+Не `https://medersnv.github.io/artifacts/...` — сайт опубликован в подпапке репозитория.
+
 ### Первый запуск (обязательно)
 
 Без этого шага deploy упадёт с **404 Failed to create deployment**:
