@@ -1,6 +1,21 @@
-# AngularInternalsDemo
+# Angular Roadmap Demo
+
+Interactive learning app for the Angular team roadmap: live demos, sidebar navigation, and presentation guidelines.
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.27.
+
+## Requirements
+
+- **Node.js:** `^20.19.0`, `^22.12.0` or `^24.0.0` ([Angular 20](https://angular.dev/reference/versions))
+- **npm:** bundled with Node (project tested with npm 11.x)
+
+Check your version:
+
+```bash
+node -v
+```
+
+Locally verified with **Node 24.14.0** and **Angular 20.3.x**.
 
 ## Development server
 

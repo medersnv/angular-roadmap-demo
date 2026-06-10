@@ -13,8 +13,8 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
 
     // --- Change Detection: оставь один provider, второй закомментируй ---
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    // provideZonelessChangeDetection(),
+    // provideZoneChangeDetection({ eventCoalescing: true }),
+    provideZonelessChangeDetection(),
 
     provideRouter(routes),
   ],

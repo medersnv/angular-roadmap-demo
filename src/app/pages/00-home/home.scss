@@ -1,0 +1,159 @@
+.home {
+  max-width: 42rem;
+  color: #1e1e2e;
+}
+
+.hero {
+  margin-bottom: 1.75rem;
+
+  .eyebrow {
+    margin: 0 0 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6c7086;
+  }
+
+  h1 {
+    margin: 0 0 0.75rem;
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+
+  .lead {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #45475a;
+  }
+}
+
+.formula {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.formula-card {
+  padding: 1rem 1.1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e6e9ef;
+
+  .formula-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .formula-label {
+    display: block;
+    margin: 0.25rem 0 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #6c7086;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #585b70;
+  }
+}
+
+.theory {
+  background: #f4f8ff;
+
+  .formula-value {
+    color: #1e66f5;
+  }
+}
+
+.practice {
+  background: #f2fbf4;
+
+  .formula-value {
+    color: #40a02b;
+  }
+}
+
+.mistake,
+.structure,
+.course-link {
+  margin-bottom: 1.75rem;
+
+  h2 {
+    margin: 0 0 0.65rem;
+    font-size: 1.1rem;
+  }
+
+  p {
+    margin: 0;
+    line-height: 1.6;
+    color: #45475a;
+  }
+}
+
+.sections-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid #e6e9ef;
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  h3 {
+    margin: 0 0 0.35rem;
+    font-size: 0.95rem;
+    color: #1e1e2e;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: #585b70;
+  }
+
+  .example {
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #7f849c;
+  }
+}
+
+.course-link a {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0.375rem;
+  background: #1e66f5;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.15s;
+
+  &:hover {
+    background: #1852c4;
+  }
+}
+
+@media (max-width: 640px) {
+  .formula {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,56 @@
+<article class="home">
+  <header class="hero">
+    <p class="eyebrow">Angular Roadmap Demo</p>
+    <h1>Регламент презентации</h1>
+    <p class="lead">
+      Структура <strong>30/70</strong>: команда умеет читать документацию. Не пересказываем официальные
+      docs — показываем, зачем это нужно и как это работает (и ломается) на практике.
+    </p>
+  </header>
+
+  <section class="formula">
+    <div class="formula-card theory">
+      <span class="formula-value">30%</span>
+      <span class="formula-label">Теория</span>
+      <p>Зачем это нужно, какую проблему решает, когда применять.</p>
+    </div>
+    <div class="formula-card practice">
+      <span class="formula-value">70%</span>
+      <span class="formula-label">Практика</span>
+      <p>Как это ломается, как отлаживать, как готовить к продакшену.</p>
+    </div>
+  </section>
+
+  <section class="mistake">
+    <h2>Главная ошибка докладчиков</h2>
+    <p>
+      Тратить 80% времени на пересказ официальной документации. Презентация должна отвечать на вопросы
+      «почему», «как под капотом» и «что будет, если сделать неправильно» — а не дублировать angular.dev.
+    </p>
+  </section>
+
+  <section class="structure">
+    <h2>Структура выступления</h2>
+    <ol class="sections-list">
+      @for (section of sections; track section.title) {
+        <li>
+          <h3>{{ section.title }}</h3>
+          <p>{{ section.description }}</p>
+          @if (section.example) {
+            <p class="example">{{ section.example }}</p>
+          }
+        </li>
+      }
+    </ol>
+  </section>
+
+  <section class="course-link">
+    <h2>План курса</h2>
+    <p>
+      Полный список тем, дат, рассказчиков и статусов — в общей таблице команды.
+    </p>
+    <a [href]="courseSheetUrl" target="_blank" rel="noopener noreferrer">
+      Открыть Angular Course (Google Sheets)
+    </a>
+  </section>
+</article>
