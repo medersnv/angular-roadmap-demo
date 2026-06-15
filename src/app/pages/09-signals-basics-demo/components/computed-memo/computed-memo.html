@@ -1,0 +1,35 @@
+<div class="compare-2">
+  <article class="panel panel-before">
+    <h4><span class="tag tag-before">Раньше</span> doubled — отдельное поле</h4>
+    <p class="metric metric-lg">doubled = <strong>{{ legacyDoubled() }}</strong></p>
+    <p class="metric">
+      base = <strong>{{ legacyBase() }}</strong>
+      @if (legacyStale()) {
+        <span class="pill pill-no">рассинхрон! ждём {{ legacyBase() * 2 }}</span>
+      } @else {
+        <span class="pill pill-ok">синхронно</span>
+      }
+    </p>
+    <div class="controls">
+      <button type="button" class="btn" (click)="legacyIncBoth()">+1 (обновить оба)</button>
+      <button type="button" class="btn" (click)="legacyIncForgot()">+1 (забыть doubled)</button>
+      <button type="button" class="btn" (click)="legacyReset()">сброс</button>
+    </div>
+    <p class="hint">doubled живёт отдельно от base — забыл пересчитать, и значения разъехались.</p>
+  </article>
+
+  <article class="panel panel-after">
+    <h4><span class="tag tag-after">Сейчас</span> computed() из base</h4>
+    <p class="metric metric-lg">
+      doubled() = <strong>{{ doubled() }}</strong> · tripled() = <strong>{{ tripled() }}</strong>
+    </p>
+    <p class="metric">
+      base = <strong>{{ base() }}</strong> <span class="pill pill-ok">всегда синхронно</span>
+    </p>
+    <div class="controls">
+      <button type="button" class="btn btn-accent" (click)="inc()">+1 base</button>
+      <button type="button" class="btn" (click)="reset()">сброс</button>
+    </div>
+    <p class="hint">doubled и tripled выводятся из base сами и доступны только для чтения (нет set).</p>
+  </article>
+</div>

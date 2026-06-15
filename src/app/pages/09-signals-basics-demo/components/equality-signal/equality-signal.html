@@ -1,0 +1,19 @@
+<div class="controls">
+  <button type="button" class="btn" (click)="setSame()">set тот же объект (id=1)</button>
+  <button type="button" class="btn" (click)="setDifferent()">set другой id</button>
+</div>
+<div class="compare-2">
+  <article class="panel panel-before">
+    <h4><span class="tag tag-before">По умолчанию</span> Object.is (ссылка)</h4>
+    <p class="metric">user = <strong>#{{ defUser().id }} {{ defUser().name }}</strong></p>
+    <p class="metric metric-lg">обновлений downstream: <strong>{{ defUpdates() }}</strong></p>
+    <p class="hint">Новый объект с тем же id всё равно считается изменением — счётчик растёт.</p>
+  </article>
+
+  <article class="panel panel-after">
+    <h4><span class="tag tag-after">equal по id</span> своя проверка</h4>
+    <p class="metric">user = <strong>#{{ idUser().id }} {{ idUser().name }}</strong></p>
+    <p class="metric metric-lg">обновлений downstream: <strong>{{ idUpdates() }}</strong></p>
+    <p class="hint">«Тот же объект» с тем же id → set пропускается, downstream не дёргается.</p>
+  </article>
+</div>

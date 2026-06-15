@@ -41,3 +41,8 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Playwright MCP session artifacts
+.playwright-mcp/
+
+public/artifacts/02-signals-modern-core/Signals-*.md

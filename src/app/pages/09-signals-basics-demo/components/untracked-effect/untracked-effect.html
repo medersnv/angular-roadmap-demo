@@ -1,0 +1,29 @@
+<div class="controls">
+  <button type="button" class="btn" (click)="changeUser()">сменить user → {{ user() }}</button>
+  <button type="button" class="btn" (click)="addClick()">+1 clicks ({{ clicks() }})</button>
+</div>
+<div class="compare-2">
+  <article class="panel panel-before">
+    <h4><span class="tag tag-before">Наивно</span> читаем оба сигнала</h4>
+    <div class="log">
+      @for (line of trackedLog(); track $index) {
+        <div class="log-line">{{ line }}</div>
+      } @empty {
+        <div class="log-line">— пусто —</div>
+      }
+    </div>
+    <p class="hint">Эффект срабатывает и на user, и на каждый +1 clicks.</p>
+  </article>
+
+  <article class="panel panel-after">
+    <h4><span class="tag tag-after">untracked()</span> clicks без подписки</h4>
+    <div class="log">
+      @for (line of untrackedLog(); track $index) {
+        <div class="log-line">{{ line }}</div>
+      } @empty {
+        <div class="log-line">— пусто —</div>
+      }
+    </div>
+    <p class="hint">Срабатывает только на user; +1 clicks эффект не запускает (но значение видно).</p>
+  </article>
+</div>

@@ -1,0 +1,35 @@
+<div class="compare-2">
+  <article class="panel panel-before">
+    <h4><span class="tag tag-before">Раньше</span> без очистки при смене</h4>
+    <div class="controls">
+      @for (s of speeds; track s.ms) {
+        <button type="button" class="btn" (click)="legacySetSpeed(s.ms)">{{ s.label }}</button>
+      }
+    </div>
+    <p class="metric metric-lg">ticks = <strong>{{ legacyTicks() }}</strong></p>
+    <p class="metric">
+      запущено таймеров: <strong>{{ legacyTimers() }}</strong>
+      @if (legacyTimers() > 1) {
+        <span class="pill pill-no">копятся</span>
+      }
+    </p>
+    <p class="hint">Каждая смена скорости добавляет таймер — счётчик летит всё быстрее (утечка).</p>
+  </article>
+
+  <article class="panel panel-after">
+    <h4><span class="tag tag-after">Сейчас</span> effect + onCleanup</h4>
+    <div class="controls">
+      @for (s of speeds; track s.ms) {
+        <button type="button" class="btn" [class.btn-accent]="s.ms === speed()" (click)="setSpeed(s.ms)">
+          {{ s.label }}
+        </button>
+      }
+    </div>
+    <p class="metric metric-lg">ticks = <strong>{{ ticks() }}</strong></p>
+    <p class="metric">
+      перезапусков effect: <strong>{{ runs() }}</strong> · активных таймеров: <strong>1</strong>
+      <span class="pill pill-ok">очищается</span>
+    </p>
+    <p class="hint">onCleanup закрывает прежний таймер при каждой смене speed — всегда ровно один.</p>
+  </article>
+</div>

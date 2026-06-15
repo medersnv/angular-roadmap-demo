@@ -1,0 +1,45 @@
+<div class="compare-2">
+  <article class="panel panel-before">
+    <h4><span class="tag tag-before">Раньше</span> сброс на первый</h4>
+    <input
+      class="field"
+      type="text"
+      placeholder="фильтр по имени…"
+      [value]="legacyFilter()"
+      (input)="setLegacyFilter($any($event.target).value)"
+    />
+    <div class="controls">
+      @for (u of legacyFiltered(); track u) {
+        <button type="button" class="btn" [class.btn-accent]="u === legacySelected()" (click)="pickLegacy(u)">
+          {{ u }}
+        </button>
+      } @empty {
+        <span class="hint">ничего не найдено</span>
+      }
+    </div>
+    <p class="metric">selected = <strong>{{ legacySelected() || '—' }}</strong></p>
+    <p class="hint">Выбери «Дина», набери «а» — выбор слетает на первого, хотя «Дина» ещё в списке.</p>
+  </article>
+
+  <article class="panel panel-after">
+    <h4><span class="tag tag-after">Сейчас</span> linkedSignal + previous</h4>
+    <input
+      class="field"
+      type="text"
+      placeholder="фильтр по имени…"
+      [value]="filter()"
+      (input)="setFilter($any($event.target).value)"
+    />
+    <div class="controls">
+      @for (u of filtered(); track u) {
+        <button type="button" class="btn" [class.btn-accent]="u === selected()" (click)="pick(u)">
+          {{ u }}
+        </button>
+      } @empty {
+        <span class="hint">ничего не найдено</span>
+      }
+    </div>
+    <p class="metric">selected = <strong>{{ selected() || '—' }}</strong></p>
+    <p class="hint">Тот же сценарий: «Дина» остаётся выбранной, пока она проходит фильтр.</p>
+  </article>
+</div>

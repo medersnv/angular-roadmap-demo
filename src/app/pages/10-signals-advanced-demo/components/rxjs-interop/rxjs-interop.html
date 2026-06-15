@@ -1,0 +1,39 @@
+<div class="compare-2">
+  <article class="panel panel-before">
+    <h4><span class="tag tag-before">Раньше</span> Subject + subscribe</h4>
+    <input
+      class="field"
+      type="text"
+      placeholder="поиск с debounce…"
+      [value]="legacyTerm()"
+      (input)="onLegacyInput($any($event.target).value)"
+    />
+    <div class="controls">
+      @for (f of legacyResults(); track f) {
+        <span class="pill pill-ok">{{ f }}</span>
+      } @empty {
+        <span class="hint">нет совпадений</span>
+      }
+    </div>
+    <p class="hint">valueChanges.pipe(debounce).subscribe(...) + отписка в ngOnDestroy.</p>
+  </article>
+
+  <article class="panel panel-after">
+    <h4><span class="tag tag-after">Сейчас</span> toObservable → toSignal</h4>
+    <input
+      class="field"
+      type="text"
+      placeholder="поиск с debounce…"
+      [value]="term()"
+      (input)="term.set($any($event.target).value)"
+    />
+    <div class="controls">
+      @for (f of results(); track f) {
+        <span class="pill pill-ok">{{ f }}</span>
+      } @empty {
+        <span class="hint">нет совпадений</span>
+      }
+    </div>
+    <p class="hint">Сигнал → поток (debounce 300мс) → снова сигнал. Подписку ведёт сам toSignal.</p>
+  </article>
+</div>

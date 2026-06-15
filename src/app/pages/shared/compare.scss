@@ -1,0 +1,313 @@
+// Общие стили для тем "Signals" — раскладка «Раньше / Сейчас» и живые виджеты.
+// Подключается и страницами, и виджетами через styleUrl.
+
+h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.intro {
+  margin: 0 0 1rem;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.55;
+
+  code {
+    font-size: 0.85em;
+    color: #1565c0;
+  }
+}
+
+.essentials {
+  margin: 0 0 1.5rem;
+  padding: 0.85rem 1rem 0.85rem 2rem;
+  background: #fce4ec;
+  border: 1px solid #f8bbd0;
+  border-radius: 0.375rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+.moment {
+  margin: 0 0 2rem;
+  max-width: 52rem;
+}
+
+.section-title {
+  margin: 0 0 0.3rem;
+  font-size: 1rem;
+  color: #222;
+}
+
+.moment-desc {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.55;
+
+  code {
+    color: #1565c0;
+  }
+}
+
+.note {
+  margin: 0.65rem 0 0;
+  padding: 0.55rem 0.7rem;
+  border-left: 3px solid #ce93d8;
+  background: #faf4fb;
+  font-size: 0.78rem;
+  color: #555;
+  line-height: 1.5;
+
+  code {
+    color: #1565c0;
+  }
+}
+
+// --- Код «было / стало» рядом ---
+.code-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  margin: 0 0 0.75rem;
+
+  @media (max-width: 760px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.code-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.code-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.code-label-before {
+  color: #b25400;
+}
+
+.code-label-after {
+  color: #2e7d32;
+}
+
+.code-block {
+  margin: 0;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.375rem;
+  background: #f8f8f8;
+  overflow-x: auto;
+  font-size: 0.74rem;
+  line-height: 1.5;
+  flex: 1;
+
+  code {
+    font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', monospace;
+    color: #333;
+    white-space: pre;
+  }
+}
+
+.code-block-before {
+  background: #fffaf2;
+  border-color: #ffe0b2;
+}
+
+.code-block-after {
+  background: #f4fbf4;
+  border-color: #c8e6c9;
+}
+
+// --- Живые панели «Раньше / Сейчас» ---
+.compare-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+
+  @media (max-width: 760px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  padding: 0.8rem 0.9rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+
+  h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0 0 0.6rem;
+    font-size: 0.85rem;
+  }
+}
+
+.panel-before {
+  border-color: #ffe082;
+  background: #fffdf5;
+}
+
+.panel-after {
+  border-color: #a5d6a7;
+  background: #f6fbf6;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  border-radius: 0.25rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.tag-before {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.tag-after {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.metric {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: #333;
+
+  strong {
+    font-variant-numeric: tabular-nums;
+    color: #111;
+  }
+}
+
+.metric-lg strong {
+  font-size: 1.4rem;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.5rem 0;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.4rem;
+  margin: 0.5rem 0;
+}
+
+.content-host {
+  padding: 0.5rem 0.6rem;
+  margin-bottom: 0.5rem;
+  border: 1px dashed #cfd8dc;
+  border-radius: 0.3rem;
+  background: #fff;
+  font-size: 0.82rem;
+}
+
+.btn {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid #bdbdbd;
+  border-radius: 0.3rem;
+  background: #fff;
+  color: #333;
+  font-size: 0.8rem;
+  cursor: pointer;
+
+  &:hover {
+    background: #f5f5f5;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.btn-accent {
+  border-color: #ba68c8;
+  background: #f3e5f5;
+  color: #6a1b9a;
+}
+
+.field {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #bdbdbd;
+  border-radius: 0.3rem;
+  font-size: 0.8rem;
+}
+
+.hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.72rem;
+  color: #777;
+  line-height: 1.45;
+}
+
+.err {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.72rem;
+  color: #c62828;
+}
+
+.log {
+  margin: 0.5rem 0 0;
+  padding: 0.5rem 0.6rem;
+  max-height: 7rem;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  border-radius: 0.3rem;
+  background: #fafafa;
+  font-family: ui-monospace, monospace;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: #444;
+}
+
+.log-line {
+  white-space: nowrap;
+}
+
+.pill {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.pill-ok {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.pill-no {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.pill-busy {
+  background: #fff8e1;
+  color: #f57f17;
+}

@@ -1,0 +1,51 @@
+<div class="compare-2">
+  <article class="panel panel-before">
+    <h4><span class="tag tag-before">Раньше</span> signal без сброса</h4>
+    <div class="controls">
+      @for (r of regions; track r) {
+        <button type="button" class="btn" [class.btn-accent]="r === legacyRegion()" (click)="setLegacyRegion(r)">
+          {{ r }}
+        </button>
+      }
+    </div>
+    <div class="controls">
+      @for (m of legacyMethods(); track m) {
+        <button type="button" class="btn" [class.btn-accent]="m === legacySelected()" (click)="pickLegacy(m)">
+          {{ m }}
+        </button>
+      }
+    </div>
+    <p class="metric">
+      selected = <strong>{{ legacySelected() }}</strong>
+      @if (legacyValid()) {
+        <span class="pill pill-ok">валиден</span>
+      } @else {
+        <span class="pill pill-no">недоступен в регионе!</span>
+      }
+    </p>
+    <p class="hint">Выбери метод, потом смени регион — выбор остаётся старым и «ломается».</p>
+  </article>
+
+  <article class="panel panel-after">
+    <h4><span class="tag tag-after">Сейчас</span> linkedSignal()</h4>
+    <div class="controls">
+      @for (r of regions; track r) {
+        <button type="button" class="btn" [class.btn-accent]="r === region()" (click)="setRegion(r)">
+          {{ r }}
+        </button>
+      }
+    </div>
+    <div class="controls">
+      @for (m of methods(); track m) {
+        <button type="button" class="btn" [class.btn-accent]="m === selected()" (click)="pick(m)">
+          {{ m }}
+        </button>
+      }
+    </div>
+    <p class="metric">
+      selected = <strong>{{ selected() }}</strong>
+      <span class="pill pill-ok">всегда валиден</span>
+    </p>
+    <p class="hint">Смена региона сбрасывает selected на первый доступный метод автоматически.</p>
+  </article>
+</div>

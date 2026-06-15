@@ -1,0 +1,37 @@
+<div class="compare-2">
+  <article class="panel panel-before">
+    <h4><span class="tag tag-before">Раньше</span> лог в каждом обработчике</h4>
+    <p class="metric metric-lg">value = <strong>{{ legacyValue() }}</strong></p>
+    <div class="controls">
+      <button type="button" class="btn" (click)="legacyInc()">+1</button>
+      <button type="button" class="btn" (click)="legacyDec()">−1</button>
+      <button type="button" class="btn" (click)="legacyReset()">Сброс</button>
+    </div>
+    <div class="log">
+      @for (line of legacyLog(); track $index) {
+        <div class="log-line">{{ line }}</div>
+      } @empty {
+        <div class="log-line">— пусто —</div>
+      }
+    </div>
+    <p class="hint">«Сброс» намеренно не пишет в лог — ручной эффект легко забыть продублировать.</p>
+  </article>
+
+  <article class="panel panel-after">
+    <h4><span class="tag tag-after">Сейчас</span> effect()</h4>
+    <p class="metric metric-lg">value = <strong>{{ value() }}</strong></p>
+    <div class="controls">
+      <button type="button" class="btn btn-accent" (click)="inc()">+1</button>
+      <button type="button" class="btn" (click)="dec()">−1</button>
+      <button type="button" class="btn" (click)="reset()">Сброс</button>
+    </div>
+    <div class="log">
+      @for (line of log(); track $index) {
+        <div class="log-line">{{ line }}</div>
+      } @empty {
+        <div class="log-line">— пусто —</div>
+      }
+    </div>
+    <p class="hint">effect() логирует любое изменение value — включая «Сброс» — без ручных вызовов.</p>
+  </article>
+</div>

@@ -33,11 +33,11 @@ export const CURRICULUM: CurriculumGroup[] = [
     order: 2,
     title: 'Signals (Modern Core)',
     items: [
-      { path: 'signals-basics', label: 'Signal basics', subtitle: 'Основы реактивности' },
-      { path: 'signals-advanced', label: 'Advanced primitives', subtitle: 'Продвинутые примитивы' },
-      { path: 'signals-components', label: 'Component interaction', subtitle: 'Взаимодействие компонентов' },
-      { path: 'signals-dom', label: 'DOM queries', subtitle: 'Запросы к DOM' },
-      { path: 'signals-philosophy', label: 'Philosophy', subtitle: 'Философия' },
+      { path: 'signals-basics', label: 'Signal basics', subtitle: 'Основы реактивности', ready: true },
+      { path: 'signals-advanced', label: 'Advanced primitives', subtitle: 'Продвинутые примитивы', ready: true },
+      { path: 'signals-components', label: 'Component interaction', subtitle: 'Взаимодействие компонентов', ready: true },
+      { path: 'signals-dom', label: 'DOM queries', subtitle: 'Запросы к DOM', ready: true },
+      { path: 'signals-philosophy', label: 'Philosophy', subtitle: 'Философия', ready: true },
     ],
   },
   {

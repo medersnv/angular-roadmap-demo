@@ -1,0 +1,78 @@
+<div class="compare-2">
+  <article class="panel panel-before">
+    <h4><span class="tag tag-before">Раньше</span> Reactive Forms + Validators</h4>
+    <form [formGroup]="form" class="stack" (ngSubmit)="submitLegacy()">
+      <div>
+        <input
+          class="field"
+          type="text"
+          formControlName="name"
+          placeholder="имя (required)"
+          (input)="legacySent.set(false)"
+        />
+        @if (form.controls.name.touched && form.controls.name.hasError('required')) {
+          <small class="err">Имя обязательно</small>
+        }
+      </div>
+      <div>
+        <input
+          class="field"
+          type="number"
+          formControlName="age"
+          placeholder="возраст (≥ 18)"
+          (input)="legacySent.set(false)"
+        />
+        @if (form.controls.age.touched && form.controls.age.hasError('required')) {
+          <small class="err">Возраст обязателен</small>
+        }
+        @if (form.controls.age.touched && form.controls.age.hasError('min')) {
+          <small class="err">Должно быть ≥ 18</small>
+        }
+      </div>
+      <button type="submit" class="btn" [disabled]="form.invalid">Отправить</button>
+    </form>
+    @if (legacySent()) {
+      <p class="metric"><span class="pill pill-ok">✓ отправлено</span></p>
+    }
+    <p class="hint">Валидаторы навешиваем на FormControl; читаем form.invalid и control.errors.</p>
+  </article>
+
+  <article class="panel panel-after">
+    <h4><span class="tag tag-after">Сейчас</span> signals + computed</h4>
+    <div class="stack">
+      <div>
+        <input
+          class="field"
+          type="text"
+          placeholder="имя (required)"
+          [value]="name()"
+          (input)="setName($any($event.target).value)"
+          (blur)="nameTouched.set(true)"
+        />
+        @if (nameTouched() && nameError(); as e) {
+          <small class="err">{{ e }}</small>
+        }
+      </div>
+      <div>
+        <input
+          class="field"
+          type="number"
+          placeholder="возраст (≥ 18)"
+          [value]="age()"
+          (input)="setAge($any($event.target).value)"
+          (blur)="ageTouched.set(true)"
+        />
+        @if (ageTouched() && ageError(); as e) {
+          <small class="err">{{ e }}</small>
+        }
+      </div>
+      <button type="button" class="btn btn-accent" [disabled]="!valid()" (click)="submit()">
+        Отправить
+      </button>
+    </div>
+    @if (sent()) {
+      <p class="metric"><span class="pill pill-ok">✓ отправлено</span></p>
+    }
+    <p class="hint">value — signal, ошибка/валидность — computed, «потрогано» — signal. Без подписок.</p>
+  </article>
+</div>

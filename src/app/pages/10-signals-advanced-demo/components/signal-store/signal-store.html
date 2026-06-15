@@ -1,0 +1,32 @@
+<div class="panel panel-after">
+  <h4><span class="tag tag-after">Сейчас</span> signal store + computed</h4>
+
+  <p class="hint">Каталог — нажми, чтобы добавить:</p>
+  <div class="controls">
+    @for (p of catalog; track p.id) {
+      <button type="button" class="btn" (click)="store.add(p)">+ {{ p.name }} ({{ p.price }}₽)</button>
+    }
+  </div>
+
+  <div class="content-host">
+    @if (store.isEmpty()) {
+      <span class="hint">корзина пуста</span>
+    } @else {
+      @for (line of store.lines(); track line.product.id) {
+        <p class="metric">
+          {{ line.product.name }} × {{ line.qty }} =
+          <strong>{{ line.qty * line.product.price }}₽</strong>
+          <button type="button" class="btn" (click)="store.remove(line.product.id)">−</button>
+        </p>
+      }
+    }
+  </div>
+
+  <p class="metric metric-lg">
+    позиций: <strong>{{ store.count() }}</strong> · сумма: <strong>{{ store.total() }}₽</strong>
+  </p>
+  <div class="controls">
+    <button type="button" class="btn" [disabled]="store.isEmpty()" (click)="store.clear()">очистить</button>
+  </div>
+  <p class="hint">store.count() / store.total() — computed: читаем напрямую, без подписок и async pipe.</p>
+</div>

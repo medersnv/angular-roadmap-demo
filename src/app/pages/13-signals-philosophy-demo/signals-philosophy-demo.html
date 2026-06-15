@@ -1,12 +1,125 @@
-<div class="demo-stub">
-  <p class="group">{{ meta.groupOrder }}. {{ meta.groupTitle }}</p>
-  <h2>{{ meta.label }}</h2>
-  <p class="subtitle">{{ meta.subtitle }}</p>
+<h2>{{ meta.label }} — {{ meta.subtitle }}</h2>
+<p class="intro">
+  Главный вопрос — <strong>когда signals, а когда RxJS</strong>. Signals — синхронный локальный
+  state, RxJS — асинхронные потоки событий. Ниже ментальная модель, живое сравнение и то, куда
+  движутся формы.
+</p>
 
-  <div class="badge">Coming soon</div>
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
 
-  <p class="hint">
-    Страница подготовлена: свой компонент и роут уже есть. Практические примеры добавим на
-    следующих занятиях.
+<h3 class="section-title">Ментальная модель: Signals vs RxJS</h3>
+<table class="mm-table">
+  <thead>
+    <tr>
+      <th>Аспект</th>
+      <th>Signals</th>
+      <th>RxJS</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (row of mentalModel; track row.aspect) {
+      <tr>
+        <td class="aspect">{{ row.aspect }}</td>
+        <td class="col-signals">{{ row.signals }}</td>
+        <td class="col-rxjs">{{ row.rxjs }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<section class="moment">
+  <h3 class="section-title">Хирургическая реактивность — вживую: кто перепроверяется?</h3>
+  <p class="moment-desc">
+    Вспышка ячейки = в ней выполнилась Change Detection. Слева — <strong>Default CD</strong>:
+    любой клик (даже «тик», который ничего не меняет) перепроверяет всё поддерево, и все ячейки
+    вспыхивают. Справа — <strong>OnPush + signal</strong>: помечается только изменившийся узел.
+    Важно: <strong>запись в DOM в обоих режимах одинаковая</strong> — Angular пишет только
+    изменившийся текст. Разница в том, сколько ячеек фреймворк ПРОВЕРИЛ, чтобы это понять.
   </p>
+  <app-cd-visualizer />
+</section>
+
+@for (m of moments; track m.id) {
+  <section class="moment">
+    <h3 class="section-title">{{ m.title }}</h3>
+    <p class="moment-desc">{{ m.desc }}</p>
+
+    <div class="code-grid">
+      <div class="code-col">
+        <span class="code-label code-label-before">Раньше</span>
+        <pre class="code-block code-block-before"><code>{{ m.beforeCode }}</code></pre>
+      </div>
+      <div class="code-col">
+        <span class="code-label code-label-after">Сейчас</span>
+        <pre class="code-block code-block-after"><code>{{ m.afterCode }}</code></pre>
+      </div>
+    </div>
+
+    @switch (m.id) {
+      @case ('derived') {
+        <app-derived-compare />
+      }
+      @case ('signal-forms') {
+        <app-forms-compare />
+      }
+    }
+
+    @if (m.note) {
+      <p class="note">{{ m.note }}</p>
+    }
+  </section>
+}
+
+<section class="moment">
+  <h3 class="section-title">Валидация на сигналах</h3>
+  <p class="moment-desc">
+    Раньше валидаторы навешивали на <code>FormControl</code> и читали <code>form.invalid</code> /
+    <code>control.errors</code>. На сигналах: значение — <code>signal</code>, ошибка и валидность —
+    <code>computed</code>, «потрогано ли поле» — <code>signal</code>. Кнопка «Отправить» блокируется,
+    пока <code>valid()</code> ложно — без единой подписки.
+  </p>
+  <app-validation-compare />
+</section>
+
+<h3 class="section-title">Как сигналы сделаны в других фреймворках</h3>
+<p class="moment-desc">
+  Сигналы — не локальная фича Angular, а консенсус индустрии. Один и тот же приём (состояние →
+  производное → эффект) выглядит почти одинаково везде; различается лишь синтаксис чтения/записи.
+</p>
+<table class="mm-table">
+  <thead>
+    <tr>
+      <th>Фреймворк</th>
+      <th>Создать</th>
+      <th>Прочитать</th>
+      <th>Производное</th>
+      <th>Эффект</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (fw of frameworks; track fw.framework) {
+      <tr>
+        <td class="aspect">{{ fw.framework }}</td>
+        <td><code>{{ fw.create }}</code></td>
+        <td><code>{{ fw.read }}</code></td>
+        <td><code>{{ fw.derived }}</code></td>
+        <td><code>{{ fw.effect }}</code></td>
+      </tr>
+    }
+  </tbody>
+</table>
+<p class="note">
+  Цель TC39 Signals (Stage 1) — встроить этот примитив в сам JavaScript, чтобы он стал общим для
+  всех фреймворков. Сигналы становятся фичей языка, а не инструментом одного фреймворка.
+</p>
+
+<div class="preview">
+  <h3>Куда идёт: Signal Forms <span class="badge-exp">experimental</span></h3>
+  <p class="preview-intro">{{ signalForms.intro }}</p>
+  <pre class="code-block code-block-after"><code>{{ signalForms.code }}</code></pre>
+  <a [href]="signalForms.docUrl" target="_blank" rel="noopener">angular.dev → Signal Forms ↗</a>
 </div>

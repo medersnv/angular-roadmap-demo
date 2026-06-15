@@ -1,0 +1,74 @@
+<div class="compare-2">
+  <article class="panel panel-before">
+    <h4><span class="tag tag-before">Раньше</span> ручные loading/data/error</h4>
+    <div class="controls">
+      @for (id of ids; track id) {
+        <button type="button" class="btn" (click)="legacyLoad(id)">
+          id {{ id }}{{ id === 99 ? ' (ошибка)' : '' }}
+        </button>
+      }
+    </div>
+    <p class="metric">
+      status =
+      @switch (legacyStatus()) {
+        @case ('loading') {
+          <span class="pill pill-busy">loading…</span>
+        }
+        @case ('resolved') {
+          <span class="pill pill-ok">resolved</span>
+        }
+        @case ('error') {
+          <span class="pill pill-no">error</span>
+        }
+        @default {
+          <span class="pill">idle</span>
+        }
+      }
+    </p>
+    @if (legacyData(); as p) {
+      <p class="metric">{{ p.name }} — <strong>{{ p.role }}</strong></p>
+    }
+    @if (legacyError(); as e) {
+      <p class="metric">⚠ {{ e }}</p>
+    }
+    <p class="hint">Каждое поле выставляем вручную; быстрые клики могут «перегнать» друг друга.</p>
+  </article>
+
+  <article class="panel panel-after">
+    <h4><span class="tag tag-after">Сейчас</span> resource()</h4>
+    <div class="controls">
+      @for (id of ids; track id) {
+        <button type="button" class="btn" [class.btn-accent]="id === userId()" (click)="load(id)">
+          id {{ id }}{{ id === 99 ? ' (ошибка)' : '' }}
+        </button>
+      }
+    </div>
+    <p class="metric">
+      status =
+      @switch (profile.status()) {
+        @case ('loading') {
+          <span class="pill pill-busy">loading…</span>
+        }
+        @case ('reloading') {
+          <span class="pill pill-busy">reloading…</span>
+        }
+        @case ('error') {
+          <span class="pill pill-no">error</span>
+        }
+        @case ('resolved') {
+          <span class="pill pill-ok">resolved</span>
+        }
+        @default {
+          <span class="pill">{{ profile.status() }}</span>
+        }
+      }
+    </p>
+    @if (profile.value(); as p) {
+      <p class="metric">{{ p.name }} — <strong>{{ p.role }}</strong></p>
+    }
+    @if (profile.error(); as e) {
+      <p class="metric">⚠ {{ errorText(e) }}</p>
+    }
+    <p class="hint">params() реактивны: меняем userId — resource сам перезапускает loader.</p>
+  </article>
+</div>
