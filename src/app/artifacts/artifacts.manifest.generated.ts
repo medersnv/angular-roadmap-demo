@@ -3,7 +3,7 @@
 import { ArtifactsManifest } from './artifacts.types';
 
 export const ARTIFACTS_MANIFEST: ArtifactsManifest = {
-  "generatedAt": "2026-06-10T06:10:55.906Z",
+  "generatedAt": "2026-06-15T12:16:21.007Z",
   "categories": [
     {
       "order": 0,
@@ -22,7 +22,7 @@ export const ARTIFACTS_MANIFEST: ArtifactsManifest = {
           "url": "artifacts/01-angular-core-internals/Angular_Senior_Architecture.pdf",
           "size": 15128897,
           "extension": "pdf",
-          "updatedAt": "2026-06-09T12:33:24.276Z"
+          "updatedAt": "2026-06-11T08:34:57.033Z"
         }
       ]
     },
@@ -30,7 +30,16 @@ export const ARTIFACTS_MANIFEST: ArtifactsManifest = {
       "order": 2,
       "slug": "02-signals-modern-core",
       "title": "Signals (Modern Core)",
-      "files": []
+      "files": [
+        {
+          "name": "Angular_Signals_Evolution.pdf",
+          "relativePath": "Angular_Signals_Evolution.pdf",
+          "url": "artifacts/02-signals-modern-core/Angular_Signals_Evolution.pdf",
+          "size": 16882119,
+          "extension": "pdf",
+          "updatedAt": "2026-06-15T12:14:16.298Z"
+        }
+      ]
     },
     {
       "order": 3,
