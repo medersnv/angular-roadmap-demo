@@ -1,0 +1,43 @@
+<div class="compare-2">
+  <article class="panel panel-before">
+    <h4><span class="tag tag-before">Pull</span> Iterator — значение берёт потребитель</h4>
+    <div class="controls">
+      <button type="button" class="btn" (click)="pullNext()" [disabled]="pullDone()">next()</button>
+      <button type="button" class="btn" (click)="resetPull()">сброс</button>
+    </div>
+    <div class="content-host">
+      @for (v of pulled(); track $index) {
+        <span class="log-line">{{ v }}</span>
+      } @empty {
+        <span class="hint">нажмите next(), чтобы вытянуть значение</span>
+      }
+    </div>
+    @if (pullDone()) {
+      <p class="metric"><span class="pill pill-ok">complete</span> источник исчерпан</p>
+    }
+    <p class="hint">Потребитель решает, КОГДА и сколько брать. Производитель пассивен (Pull/Pull).</p>
+  </article>
+
+  <article class="panel panel-after">
+    <h4><span class="tag tag-after">Push</span> Observable — значение шлёт производитель</h4>
+    <div class="controls">
+      @if (!pushing()) {
+        <button type="button" class="btn btn-accent" (click)="startPush()">subscribe</button>
+      } @else {
+        <button type="button" class="btn" (click)="stopPush()">unsubscribe</button>
+      }
+    </div>
+    <div class="content-host">
+      @for (v of pushed(); track $index) {
+        <span class="log-line">{{ v }}</span>
+      } @empty {
+        <span class="hint">подпишитесь — значения начнут приходить сами</span>
+      }
+    </div>
+    <p class="hint">Производитель решает, КОГДА присылать. Потребитель лишь реагирует (Push/Push).</p>
+  </article>
+</div>
+<p class="note">
+  «Развернули стрелки» в интерфейсе Iterator (Pull) — получили Observable (Push). Та же алгебра
+  операторов (map/filter/reduce), что и для статических коллекций, теперь применима к событиям во времени.
+</p>

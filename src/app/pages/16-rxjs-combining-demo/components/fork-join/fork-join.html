@@ -1,0 +1,31 @@
+<div class="panel panel-after">
+  <h4><span class="tag tag-after">forkJoin</span> theme.json + features.json + i18n.json → один config</h4>
+
+  <div class="controls">
+    <button type="button" class="btn btn-accent" (click)="configService.load()">
+      Загрузить конфигурацию
+    </button>
+    @if (configService.loading$ | async) {
+      <span class="pill pill-busy">загрузка…</span>
+    }
+  </div>
+
+  @if (configService.config$ | async; as cfg) {
+    <div class="content-host">
+      <div class="log-line">theme: <strong>{{ cfg.theme }}</strong></div>
+      <div class="log-line">primaryColor: <strong>{{ cfg.primaryColor }}</strong></div>
+      <div class="log-line">locale: <strong>{{ cfg.locale }}</strong></div>
+      <div class="log-line">features: <strong>{{ cfg.features.join(', ') }}</strong></div>
+    </div>
+    <p class="metric">
+      собрано из <strong>{{ cfg.loadedFiles }}</strong> файлов <span class="pill pill-ok">все готовы</span>
+    </p>
+  } @else {
+    <p class="hint">Нажмите «Загрузить» — три файла поедут параллельно, объект появится одним куском.</p>
+  }
+
+  <p class="hint">
+    forkJoin дожидается complete КАЖДОГО запроса и эмитит единственный кортеж с последними
+    значениями. Промежуточных «полузагруженных» состояний UI не видит — в отличие от combineLatest.
+  </p>
+</div>

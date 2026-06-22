@@ -1,0 +1,21 @@
+<div class="panel panel-after">
+  <h4><span class="tag tag-after">Schedulers</span> порядок доставки в Event Loop</h4>
+  <div class="controls">
+    <button type="button" class="btn btn-accent" (click)="run()">Запустить</button>
+  </div>
+
+  <div class="content-host">
+    @for (line of log(); track $index) {
+      <div class="log-line">{{ $index + 1 }}. {{ line }}</div>
+    } @empty {
+      <span class="hint">нажмите «Запустить» — порядок подписок один, а порядок доставки разный</span>
+    }
+  </div>
+
+  <p class="note">
+    Подписки объявлены в порядке async → asap → sync, но доставка идёт: сначала <strong>sync</strong>
+    (синхронно), затем синхронный код, потом <strong>asap</strong> (микрозадача, как Promise),
+    и последним <strong>async</strong> (макрозадача, как setTimeout). animationFrameScheduler
+    синхронизировал бы доставку с кадром перерисовки экрана.
+  </p>
+</div>

@@ -1,12 +1,38 @@
-<div class="demo-stub">
-  <p class="group">{{ meta.groupOrder }}. {{ meta.groupTitle }}</p>
-  <h2>{{ meta.label }}</h2>
-  <p class="subtitle">{{ meta.subtitle }}</p>
+<h2>{{ meta.label }} — {{ meta.subtitle }}</h2>
+<p class="intro">
+  Утечка памяти в RxJS — это подписка, которая живёт дольше компонента. Бесконечный поток
+  (<code>interval</code>, <code>fromEvent</code>, <code>Subject</code>) продолжает работать и держать
+  ссылки, пока его не закрыть. Ниже — анатомия утечки и три способа её избежать.
+</p>
 
-  <div class="badge">Coming soon</div>
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
 
-  <p class="hint">
-    Страница подготовлена: свой компонент и роут уже есть. Практические примеры добавим на
-    следующих занятиях.
-  </p>
-</div>
+@for (m of moments; track m.id) {
+  <section class="moment">
+    <h3 class="section-title">{{ m.title }}</h3>
+    <p class="moment-desc">{{ m.desc }}</p>
+
+    <div class="code-grid">
+      <div class="code-col">
+        <span class="code-label code-label-before">Опасно</span>
+        <pre class="code-block code-block-before"><code>{{ m.beforeCode }}</code></pre>
+      </div>
+      <div class="code-col">
+        <span class="code-label code-label-after">Безопасно</span>
+        <pre class="code-block code-block-after"><code>{{ m.afterCode }}</code></pre>
+      </div>
+    </div>
+
+    @if (m.live) {
+      <app-leak-lab />
+    }
+
+    @if (m.note) {
+      <p class="note">{{ m.note }}</p>
+    }
+  </section>
+}

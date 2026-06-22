@@ -1,0 +1,57 @@
+<div class="panel panel-after">
+  <h4><span class="tag tag-after">combineLatest</span> поиск + категория + страница → один запрос</h4>
+
+  <label class="stack">
+    <span class="hint">Поиск</span>
+    <input class="field" type="text" placeholder="например: Pro" (input)="onTerm($any($event.target).value)" />
+  </label>
+
+  <div class="controls">
+    @for (cat of categories; track cat) {
+      <button
+        type="button"
+        class="btn"
+        [class.btn-accent]="cat === (search.category$ | async)"
+        (click)="search.setCategory(cat)"
+      >
+        {{ cat }}
+      </button>
+    }
+  </div>
+
+  <div class="controls">
+    <span class="hint">Стр.:</span>
+    @for (p of pages; track p) {
+      <button
+        type="button"
+        class="btn"
+        [class.btn-accent]="p === (search.page$ | async)"
+        (click)="search.setPage(p)"
+      >
+        {{ p }}
+      </button>
+    }
+  </div>
+
+  <!-- AsyncPipe сам подписывается и отписывается — ручной unsubscribe не нужен -->
+  @if (search.results$ | async; as res) {
+    <p class="metric">
+      запрос: <strong>«{{ res.query.term || '∅' }}»</strong> · {{ res.query.category }} · стр. {{ res.query.page }}
+      · найдено: <strong>{{ res.total }}</strong>
+    </p>
+    <div class="content-host">
+      @if (res.items.length) {
+        @for (item of res.items; track item) {
+          <div class="log-line">• {{ item }}</div>
+        }
+      } @else {
+        <span class="hint">Ничего не найдено.</span>
+      }
+    </div>
+  }
+
+  <p class="hint">
+    Любое из трёх значений меняется — combineLatest отдаёт свежий кортеж из ПОСЛЕДНИХ значений
+    всех потоков, и switchMap делает ровно один (не отменённый) запрос.
+  </p>
+</div>

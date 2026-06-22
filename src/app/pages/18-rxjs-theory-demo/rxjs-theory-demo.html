@@ -1,12 +1,36 @@
-<div class="demo-stub">
-  <p class="group">{{ meta.groupOrder }}. {{ meta.groupTitle }}</p>
-  <h2>{{ meta.label }}</h2>
-  <p class="subtitle">{{ meta.subtitle }}</p>
+<h2>{{ meta.label }} — {{ meta.subtitle }}</h2>
+<p class="intro">
+  RxJS — это архитектура реактивных потоков: от математической дуальности (вывернутый Iterator) до
+  управления временем через Schedulers. Здесь — происхождение, внутреннее устройство Observable,
+  контракт, баттл с Promise и связь с Signals.
+</p>
 
-  <div class="badge">Coming soon</div>
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
 
-  <p class="hint">
-    Страница подготовлена: свой компонент и роут уже есть. Практические примеры добавим на
-    следующих занятиях.
-  </p>
-</div>
+@for (m of moments; track m.id) {
+  <section class="moment">
+    <h3 class="section-title">{{ m.title }}</h3>
+    <p class="moment-desc">{{ m.desc }}</p>
+
+    @if (m.code) {
+      <pre class="code-block code-block-after"><code>{{ m.code }}</code></pre>
+    }
+
+    @switch (m.live) {
+      @case ('pull-push') {
+        <app-pull-push />
+      }
+      @case ('schedulers') {
+        <app-schedulers />
+      }
+    }
+
+    @if (m.note) {
+      <p class="note">{{ m.note }}</p>
+    }
+  </section>
+}

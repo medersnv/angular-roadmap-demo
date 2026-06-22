@@ -1,0 +1,41 @@
+<div class="panel panel-after">
+  <h4><span class="tag tag-after">zip</span> два потока склеиваются по индексу → A1, B2, C3</h4>
+
+  @let letters = (pair.lettersSent$ | async) ?? [];
+  @let numbers = (pair.numbersSent$ | async) ?? [];
+  @let pairs = (pair.pairs$ | async) ?? [];
+
+  <div class="controls">
+    <button type="button" class="btn" (click)="pair.sendLetter()">Отправить букву</button>
+    <button type="button" class="btn" (click)="pair.sendNumber()">Отправить число</button>
+    <button type="button" class="btn" (click)="pair.reset()">Сброс</button>
+  </div>
+
+  <p class="metric">
+    поток букв: <strong>{{ letters.length ? letters.join(' ') : '—' }}</strong>
+    @if (letters.length - pairs.length > 0) {
+      <span class="pill pill-busy">{{ letters.length - pairs.length }} ждут число</span>
+    }
+  </p>
+  <p class="metric">
+    поток чисел: <strong>{{ numbers.length ? numbers.join(' ') : '—' }}</strong>
+    @if (numbers.length - pairs.length > 0) {
+      <span class="pill pill-busy">{{ numbers.length - pairs.length }} ждут букву</span>
+    }
+  </p>
+
+  <div class="content-host">
+    <span class="hint">склеенные пары (zip):</span>
+    @for (p of pairs; track $index) {
+      <span class="log-line">{{ p }}</span>
+    } @empty {
+      <span class="hint">пар пока нет — нужно по значению из ОБОИХ потоков</span>
+    }
+  </div>
+
+  <p class="hint">
+    Отправьте 3 буквы и только 1 число — появится одна пара (A1), а две буквы будут ждать своих
+    чисел в буфере. zip рождает пару лишь когда оба потока выдали значение, и склеивает их строго
+    по порядку: 1-я с 1-й, 2-я со 2-й. Ничего не теряется и не дублируется.
+  </p>
+</div>

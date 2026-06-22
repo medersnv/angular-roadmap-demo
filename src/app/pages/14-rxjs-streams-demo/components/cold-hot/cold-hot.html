@@ -1,0 +1,22 @@
+<div class="compare-2">
+  <article class="panel panel-before">
+    <h4><span class="tag tag-before">Cold</span> unicast — запрос на каждого подписчика</h4>
+    <div class="controls">
+      <button type="button" class="btn" (click)="runCold()">3 подписчика разом</button>
+    </div>
+    <p class="metric metric-lg">запусков источника = <strong>{{ svc.coldRuns$ | async }}</strong></p>
+    <p class="hint">Холодный поток пересоздаётся на каждую подписку → 3 подписки = 3 «HTTP-запроса».</p>
+  </article>
+
+  <article class="panel panel-after">
+    <h4><span class="tag tag-after">Hot</span> shareReplay(1) — один запрос на всех</h4>
+    <div class="controls">
+      <button type="button" class="btn btn-accent" (click)="runHot()">3 подписчика разом</button>
+    </div>
+    <p class="metric metric-lg">запусков источника = <strong>{{ svc.hotRuns$ | async }}</strong></p>
+    <p class="hint">shareReplay кэширует результат → сколько ни подписывайся, источник запускается один раз.</p>
+  </article>
+</div>
+<div class="controls">
+  <button type="button" class="btn" (click)="svc.reset()">Сбросить счётчики</button>
+</div>

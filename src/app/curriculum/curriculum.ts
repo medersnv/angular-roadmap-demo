@@ -44,11 +44,11 @@ export const CURRICULUM: CurriculumGroup[] = [
     order: 3,
     title: 'RxJS (Deep Dive)',
     items: [
-      { path: 'rxjs-streams', label: 'Observables', subtitle: 'Классы и потоки' },
-      { path: 'rxjs-switching', label: 'Switching operators', subtitle: 'Переключающие операторы' },
-      { path: 'rxjs-combining', label: 'Combining operators', subtitle: 'Комбинирующие операторы' },
-      { path: 'rxjs-memory-leaks', label: 'Memory leaks', subtitle: 'Утечки памяти' },
-      { path: 'rxjs-theory', label: 'Theory', subtitle: 'Теория' },
+      { path: 'rxjs-streams', label: 'Observables', subtitle: 'Классы и потоки', ready: true },
+      { path: 'rxjs-switching', label: 'Switching operators', subtitle: 'Переключающие операторы', ready: true },
+      { path: 'rxjs-combining', label: 'Combining operators', subtitle: 'Комбинирующие операторы', ready: true },
+      { path: 'rxjs-memory-leaks', label: 'Memory leaks', subtitle: 'Утечки памяти', ready: true },
+      { path: 'rxjs-theory', label: 'Theory', subtitle: 'Теория', ready: true },
     ],
   },
   {

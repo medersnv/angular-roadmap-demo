@@ -1,12 +1,46 @@
-<div class="demo-stub">
-  <p class="group">{{ meta.groupOrder }}. {{ meta.groupTitle }}</p>
-  <h2>{{ meta.label }}</h2>
-  <p class="subtitle">{{ meta.subtitle }}</p>
+<h2>{{ meta.label }} — {{ meta.subtitle }}</h2>
+<p class="intro">
+  Observable — это <strong>ленивая функция</strong>, а не контейнер: она описывает, как произвести
+  данные во времени и как прибрать ресурсы. Subject добавляет <strong>multicasting</strong> и
+  хранение состояния. Ниже — чем поток отличается от Promise, его контракт и типы Subject.
+</p>
 
-  <div class="badge">Coming soon</div>
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
 
-  <p class="hint">
-    Страница подготовлена: свой компонент и роут уже есть. Практические примеры добавим на
-    следующих занятиях.
-  </p>
-</div>
+@for (m of moments; track m.id) {
+  <section class="moment">
+    <h3 class="section-title">{{ m.title }}</h3>
+    <p class="moment-desc">{{ m.desc }}</p>
+
+    <div class="code-grid">
+      <div class="code-col">
+        <span class="code-label code-label-before">{{ m.beforeLabel }}</span>
+        <pre class="code-block code-block-before"><code>{{ m.beforeCode }}</code></pre>
+      </div>
+      <div class="code-col">
+        <span class="code-label code-label-after">{{ m.afterLabel }}</span>
+        <pre class="code-block code-block-after"><code>{{ m.afterCode }}</code></pre>
+      </div>
+    </div>
+
+    @switch (m.live) {
+      @case ('subjects') {
+        <app-subjects-zoo />
+      }
+      @case ('cold-hot') {
+        <app-cold-hot />
+      }
+      @case ('replay-compare') {
+        <app-replay-compare />
+      }
+    }
+
+    @if (m.note) {
+      <p class="note">{{ m.note }}</p>
+    }
+  </section>
+}

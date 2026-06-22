@@ -1,12 +1,49 @@
-<div class="demo-stub">
-  <p class="group">{{ meta.groupOrder }}. {{ meta.groupTitle }}</p>
-  <h2>{{ meta.label }}</h2>
-  <p class="subtitle">{{ meta.subtitle }}</p>
+<h2>{{ meta.label }} — {{ meta.subtitle }}</h2>
+<p class="intro">
+  Комбинирующие операторы соединяют несколько потоков в один. Здесь работает паттерн
+  <strong>«потоки данных вместо действий»</strong>: состояние лежит в приватных
+  <code>BehaviorSubject</code> внутри сервисов и торчит наружу как read-only <code>Observable</code>.
+  Шаблоны подписываются через <code>AsyncPipe</code>, а ручные подписки закрываются
+  <code>takeUntilDestroyed()</code> — без утечек.
+</p>
 
-  <div class="badge">Coming soon</div>
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
 
-  <p class="hint">
-    Страница подготовлена: свой компонент и роут уже есть. Практические примеры добавим на
-    следующих занятиях.
-  </p>
-</div>
+@for (m of moments; track m.id) {
+  <section class="moment">
+    <h3 class="section-title">{{ m.title }}</h3>
+    <p class="moment-desc">{{ m.desc }}</p>
+
+    <div class="code-grid">
+      <div class="code-col">
+        <span class="code-label code-label-before">Marble</span>
+        <pre class="code-block code-block-before"><code>{{ m.marble }}</code></pre>
+      </div>
+      <div class="code-col">
+        <span class="code-label code-label-after">Сервис</span>
+        <pre class="code-block code-block-after"><code>{{ m.code }}</code></pre>
+      </div>
+    </div>
+
+    <p class="note">{{ m.why }}</p>
+
+    @switch (m.id) {
+      @case ('combineLatest') {
+        <app-combine-latest />
+      }
+      @case ('forkJoin') {
+        <app-fork-join />
+      }
+      @case ('withLatestFrom') {
+        <app-with-latest-from />
+      }
+      @case ('zip') {
+        <app-zip />
+      }
+    }
+  </section>
+}

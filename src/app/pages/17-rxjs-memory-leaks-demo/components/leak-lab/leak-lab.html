@@ -1,0 +1,60 @@
+<div class="compare-2">
+  <article class="panel panel-before">
+    <h4><span class="tag tag-before">Утечка</span> subscribe без отписки</h4>
+    <div class="controls">
+      <button type="button" class="btn" (click)="toggleLeaky()">
+        {{ leakyMounted() ? 'Размонтировать' : 'Смонтировать' }} leaky-ticker
+      </button>
+      @if (leakyMounted()) {
+        <app-leaky-ticker />
+      }
+    </div>
+    <p class="metric metric-lg">ticks = <strong>{{ lab.leakyTicks$ | async }}</strong></p>
+    <p class="metric">
+      живых забытых подписок: <strong>{{ lab.aliveLeaks$ | async }}</strong>
+      <span class="pill pill-no">не закрываются</span>
+    </p>
+    <p class="hint">
+      Размонтируйте компонент — счётчик НЕ останавливается: interval всё ещё тикает.
+      Каждое новое монтирование добавляет ещё одну вечную подписку (число летит быстрее).
+      Уйдите на другую страницу и вернитесь — leaky-счётчик всё это время рос: утечка пережила навигацию.
+    </p>
+  </article>
+
+  <article class="panel panel-after">
+    <h4><span class="tag tag-after">Без утечки</span> takeUntilDestroyed()</h4>
+    <div class="controls">
+      <button type="button" class="btn btn-accent" (click)="toggleSafe()">
+        {{ safeMounted() ? 'Размонтировать' : 'Смонтировать' }} safe-ticker
+      </button>
+      @if (safeMounted()) {
+        <app-safe-ticker />
+      }
+    </div>
+    <p class="metric metric-lg">ticks = <strong>{{ lab.safeTicks$ | async }}</strong></p>
+    <p class="metric">активных подписок: <strong>{{ safeMounted() ? 1 : 0 }}</strong> <span class="pill pill-ok">закрывается</span></p>
+    <p class="hint">
+      Размонтируйте (или уйдите со страницы) — takeUntilDestroyed() завершает поток, счётчик
+      замирает. Сколько раз ни монтируй, живёт максимум одна подписка.
+    </p>
+  </article>
+</div>
+
+<div class="controls">
+  <button
+    type="button"
+    class="btn btn-accent"
+    [disabled]="!leakyMounted() && !safeMounted() && ((lab.aliveLeaks$ | async) ?? 0) === 0"
+    (click)="unsubscribeBoth()"
+  >
+    Отписаться от всех
+  </button>
+  <button type="button" class="btn" (click)="lab.resetTicks()">Сбросить счётчики тиков</button>
+</div>
+<p class="hint">
+  «Отписаться от всех» размонтирует оба компонента (safe закроется через takeUntilDestroyed) и
+  принудительно гасит leaky-подписки по сохранённым в сервисе ссылкам — даже те, что утекли ДО
+  навигации. После клика leaky-тики замирают, «живых забытых подписок» становится 0. Это и есть
+  лечение утечки: сохранить ссылку и вызвать <code>unsubscribe()</code>. «Сброс» же только
+  обнуляет числа — пока подписки живы, leaky-счётчик тут же поползёт обратно.
+</p>

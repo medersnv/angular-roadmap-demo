@@ -1,12 +1,37 @@
-<div class="demo-stub">
-  <p class="group">{{ meta.groupOrder }}. {{ meta.groupTitle }}</p>
-  <h2>{{ meta.label }}</h2>
-  <p class="subtitle">{{ meta.subtitle }}</p>
+<h2>{{ meta.label }} — {{ meta.subtitle }}</h2>
+<p class="intro">
+  Flattening-операторы (<code>*Map</code>) разворачивают внешнее значение во внутренний поток —
+  обычно HTTP-запрос. Разница между ними в одном: <strong>что делать, когда новое событие
+  пришло раньше, чем завершился предыдущий запрос</strong> — отменить, распараллелить, поставить
+  в очередь или проигнорировать.
+</p>
 
-  <div class="badge">Coming soon</div>
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
 
-  <p class="hint">
-    Страница подготовлена: свой компонент и роут уже есть. Практические примеры добавим на
-    следующих занятиях.
-  </p>
-</div>
+@for (m of moments; track m.id) {
+  <section class="moment">
+    <h3 class="section-title">{{ m.title }}</h3>
+    <p class="moment-desc">{{ m.desc }}</p>
+
+    <div class="code-grid">
+      <div class="code-col">
+        <span class="code-label code-label-before">Marble</span>
+        <pre class="code-block code-block-before"><code>{{ m.marble }}</code></pre>
+      </div>
+      <div class="code-col">
+        <span class="code-label code-label-after">Код</span>
+        <pre class="code-block code-block-after"><code>{{ m.code }}</code></pre>
+      </div>
+    </div>
+
+    @if (m.id === 'compare') {
+      <app-flattening-compare />
+    }
+
+    <p class="note">{{ m.why }}</p>
+  </section>
+}

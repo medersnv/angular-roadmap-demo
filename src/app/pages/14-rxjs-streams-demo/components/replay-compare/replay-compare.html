@@ -1,0 +1,63 @@
+<div class="compare-2">
+  <article class="panel panel-before">
+    <h4><span class="tag tag-before">ReplaySubject(5)</span> вы — источник</h4>
+    <div class="controls">
+      <button type="button" class="btn" (click)="svc.emit()">Добавить событие (.next)</button>
+      <button type="button" class="btn btn-accent" (click)="connectReplayLate()">Поздний подписчик</button>
+    </div>
+    <p class="metric">последнее значение: <strong>{{ svc.events$ | async }}</strong></p>
+    <p class="metric">источника нет — значения проталкиваете вы сами</p>
+
+    @if (rsLate(); as late) {
+      <div class="content-host">
+        <span class="hint">поздний подписчик получил из буфера (до 5):</span>
+        @for (v of late; track $index) {
+          <span class="log-line">{{ v }}</span>
+        } @empty {
+          <span class="hint">буфер пуст</span>
+        }
+      </div>
+    }
+    <p class="hint">
+      Нажмите «Добавить» 6+ раз, затем «Поздний подписчик» — он мгновенно получит последние 5
+      (более старые буфер вытеснил). Это standalone-источник: upstream-потока нет.
+    </p>
+  </article>
+
+  <article class="panel panel-after">
+    <h4><span class="tag tag-after">shareReplay(5)</span> обёртка над источником</h4>
+    <div class="controls">
+      <button type="button" class="btn" (click)="subscribeShared()">Подписаться</button>
+      <button type="button" class="btn btn-accent" (click)="connectSharedLate()">Поздний подписчик</button>
+    </div>
+    <p class="metric">
+      запусков источника: <strong>{{ svc.sourceRuns$ | async }}</strong>
+      <span class="pill pill-ok">один на всех</span>
+    </p>
+
+    @if (srMain(); as main) {
+      <div class="content-host">
+        <span class="hint">подписчик №1 (источник выдаёт 10→50 по 0.4 c):</span>
+        @for (v of main; track $index) {
+          <span class="log-line">{{ v }}</span>
+        } @empty {
+          <span class="hint">ждём значения…</span>
+        }
+      </div>
+    }
+    @if (srLate(); as late) {
+      <div class="content-host">
+        <span class="hint">поздний подписчик — последние 5 из кэша, источник НЕ перезапущен:</span>
+        @for (v of late; track $index) {
+          <span class="log-line">{{ v }}</span>
+        } @empty {
+          <span class="hint">кэш пуст</span>
+        }
+      </div>
+    }
+    <p class="hint">
+      Нажмите «Подписаться», дождитесь серии 10…50, затем «Поздний подписчик» — он получит те же 5
+      из кэша, а «запусков источника» останется 1. Источник здесь — внешний (холодный) Observable.
+    </p>
+  </article>
+</div>

@@ -1,0 +1,47 @@
+<div class="panel panel-after">
+  <h4><span class="tag tag-after">withLatestFrom</span> клик ведёт, форма «подмешивает» последнее значение</h4>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label class="stack">
+      <span class="hint">Email</span>
+      <input class="field" type="email" formControlName="email" placeholder="you@example.com" />
+      @if (form.controls.email.touched && form.controls.email.invalid) {
+        <span class="err">Введите корректный email.</span>
+      }
+    </label>
+
+    <div class="controls">
+      <span class="hint">План:</span>
+      @for (p of plans; track p) {
+        <label class="hint">
+          <input type="radio" formControlName="plan" [value]="p" /> {{ p }}
+        </label>
+      }
+    </div>
+
+    <div class="controls">
+      <button type="submit" class="btn btn-accent">Отправить</button>
+      @if (form.valid) {
+        <span class="pill pill-ok">форма валидна</span>
+      } @else {
+        <span class="pill pill-no">форма невалидна</span>
+      }
+    </div>
+  </form>
+
+  @if (accepted$ | async; as list) {
+    <p class="metric">принято заявок: <strong>{{ list.length }}</strong></p>
+    <div class="content-host">
+      @for (reg of list; track reg) {
+        <div class="log-line">✓ {{ reg.email }} — {{ reg.plan }}</div>
+      } @empty {
+        <span class="hint">Пока ничего не отправлено.</span>
+      }
+    </div>
+  }
+
+  <p class="hint">
+    Поток заявок эмитит только по клику и берёт последнее значение формы. Печатая в полях,
+    вы НЕ создаёте заявок — withLatestFrom не реагирует на изменения «ведомого» потока.
+  </p>
+</div>
