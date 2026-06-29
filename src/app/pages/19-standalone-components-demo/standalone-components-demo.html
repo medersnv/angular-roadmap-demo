@@ -1,12 +1,60 @@
-<div class="demo-stub">
-  <p class="group">{{ meta.groupOrder }}. {{ meta.groupTitle }}</p>
-  <h2>{{ meta.label }}</h2>
-  <p class="subtitle">{{ meta.subtitle }}</p>
+<h2>{{ meta.label }} — {{ meta.subtitle }}</h2>
+<p class="intro">
+  Standalone-компонент сам перечисляет зависимости в <code>imports</code> и не нуждается в
+  <code>@NgModule</code>. Слева — как это делали раньше, справа — современная идиома Angular 20.
+  Это <strong>дефолт с v17</strong>.
+</p>
 
-  <div class="badge">Coming soon</div>
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
 
-  <p class="hint">
-    Страница подготовлена: свой компонент и роут уже есть. Практические примеры добавим на
-    следующих занятиях.
+@for (m of moments; track m.id) {
+  <section class="moment">
+    <h3 class="section-title">{{ m.title }}</h3>
+    <p class="moment-desc">{{ m.desc }}</p>
+
+    <div class="code-grid">
+      <div class="code-col">
+        <span class="code-label code-label-before">Раньше</span>
+        <pre class="code-block code-block-before"><code>{{ m.beforeCode }}</code></pre>
+      </div>
+      <div class="code-col">
+        <span class="code-label code-label-after">Сейчас</span>
+        <pre class="code-block code-block-after"><code>{{ m.afterCode }}</code></pre>
+      </div>
+    </div>
+
+    @if (m.note) {
+      <p class="note">{{ m.note }}</p>
+    }
+  </section>
+}
+
+<section class="moment">
+  <h3 class="section-title">Живой пример: карточка из standalone-зависимостей</h3>
+  <p class="moment-desc">
+    Эта карточка собрана без единого NgModule: страница импортирует standalone-компонент
+    <code>&lt;app-star-rating&gt;</code> и пайп <code>CurrencyPipe</code> прямо в свой
+    <code>imports</code>. Покликайте по звёздам — рейтинг прилетает через <code>output()</code>.
   </p>
-</div>
+
+  <div class="compare-2">
+    <article class="panel panel-after">
+      <h4><span class="tag tag-after">imports: [StarRating, CurrencyPipe]</span></h4>
+      <p class="metric metric-lg">{{ price() | currency: 'RUB' : 'symbol' : '1.0-0' }}</p>
+      <app-star-rating [value]="rating()" (rated)="setRating($event)" />
+      <p class="metric">Вердикт: <strong>{{ summary() }}</strong></p>
+      <div class="controls">
+        <button type="button" class="btn" (click)="price.set(990)">Скидка 990 ₽</button>
+        <button type="button" class="btn" (click)="price.set(1990)">Обычная 1990 ₽</button>
+      </div>
+      <p class="hint">
+        Ни одного @NgModule в цепочке: компонент-страница → standalone-ребёнок → standalone-пайп.
+        Зависимости видны в коде, лишнее не попадёт в бандл.
+      </p>
+    </article>
+  </div>
+</section>

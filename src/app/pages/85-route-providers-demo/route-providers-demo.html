@@ -1,0 +1,82 @@
+<h2>{{ meta.label }} — {{ meta.subtitle }}</h2>
+<p class="intro">
+  <code>providers</code> прямо на объекте <code>Route</code> создают DI-инжектор, заскоупленный на
+  ветку маршрутов. Сервис живёт, пока активна ветка, и уничтожается при выходе. Ниже — сравнение
+  с <code>providedIn: 'root'</code> (глобальный синглтон).
+</p>
+
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
+
+@for (m of moments; track m.id) {
+  <section class="moment">
+    <h3 class="section-title">{{ m.title }}</h3>
+    <p class="moment-desc">{{ m.desc }}</p>
+
+    <div class="code-grid">
+      <div class="code-col">
+        <span class="code-label code-label-before">root-синглтон</span>
+        <pre class="code-block code-block-before"><code>{{ m.beforeCode }}</code></pre>
+      </div>
+      <div class="code-col">
+        <span class="code-label code-label-after">scoped на роут</span>
+        <pre class="code-block code-block-after"><code>{{ m.afterCode }}</code></pre>
+      </div>
+    </div>
+
+    @if (m.note) {
+      <p class="note">{{ m.note }}</p>
+    }
+  </section>
+}
+
+<section class="moment">
+  <h3 class="section-title">Живой пример: время жизни инстанса</h3>
+  <p class="moment-desc">
+    Слева — root-синглтон: один на всё приложение, состояние не сбрасывается. Справа — сервис из
+    <code>providers</code> ветки: входите в <code>/wizard</code>, крутите счётчик, выходите — и при
+    повторном входе получаете <strong>новый</strong> экземпляр с обнулённым состоянием.
+  </p>
+
+  <div class="compare-2">
+    <article class="panel panel-before">
+      <h4><span class="tag tag-before">providedIn: 'root'</span></h4>
+      <p class="metric metric-lg">count = <strong>{{ rootCount() }}</strong></p>
+      <p class="metric">экземпляр: <strong>#1</strong> (всегда один)</p>
+      <div class="controls">
+        <button type="button" class="btn" (click)="incRoot()">+1</button>
+      </div>
+      <p class="hint">Состояние живёт всё время работы приложения — глобально и общо для всех.</p>
+    </article>
+
+    <article class="panel panel-after">
+      <h4><span class="tag tag-after">providers: [WizardState]</span></h4>
+      @if (scoped(); as inst) {
+        <p class="metric metric-lg">step = <strong>{{ inst.count }}</strong></p>
+        <p class="metric">экземпляр: <strong>#{{ inst.id }}</strong> <span class="pill pill-ok">активен</span></p>
+        <div class="controls">
+          <button type="button" class="btn btn-accent" (click)="incScoped()">+1 step</button>
+          <button type="button" class="btn" (click)="leave()">выйти из /wizard</button>
+        </div>
+      } @else {
+        <p class="metric metric-lg"><span class="pill pill-no">экземпляра нет</span></p>
+        <p class="metric">вы вне ветки /wizard</p>
+        <div class="controls">
+          <button type="button" class="btn btn-accent" (click)="enter()">войти в /wizard</button>
+        </div>
+      }
+      <p class="hint">Вошёл — создался, вышел — уничтожился вместе со state. Утечки состояния нет.</p>
+    </article>
+  </div>
+
+  @if (log().length) {
+    <ol class="log">
+      @for (line of log(); track $index) {
+        <li class="log-line">{{ line }}</li>
+      }
+    </ol>
+  }
+</section>

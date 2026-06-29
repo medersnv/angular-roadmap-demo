@@ -1,0 +1,89 @@
+// Дополнительные виджеты для тем Standalone Architecture.
+// Подключается вторым стайлом рядом с compare.scss там, где нужны эти классы.
+
+// --- Звёзды (star-rating) ---
+.stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.star {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #d0d0d0;
+  cursor: pointer;
+}
+
+.star-on {
+  color: #ffb400;
+}
+
+.stars-value {
+  margin-left: 0.4rem;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+// --- Простой список (фильтр-пайп) ---
+.plain-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+  color: #333;
+  line-height: 1.7;
+}
+
+// --- Кнопка-строка с описанием (фичи / маршруты) ---
+.row-btn {
+  text-align: left;
+  font-family: ui-monospace, monospace;
+  font-size: 0.76rem;
+}
+
+.feature-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: left;
+  width: 100%;
+}
+
+.feature-check {
+  flex: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  background: #eee;
+  font-weight: 700;
+}
+
+.feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.feature-desc {
+  font-size: 0.72rem;
+  color: #777;
+  font-weight: 400;
+}
+
+// --- Сетка фич-кнопок (provideRouter конструктор) ---
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.feature-compare {
+  margin-top: 0.75rem;
+}

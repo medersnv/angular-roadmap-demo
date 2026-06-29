@@ -1,0 +1,72 @@
+<h2>{{ meta.label }} — {{ meta.subtitle }}</h2>
+<p class="intro">
+  Эта тема — про организацию кода, а не про «было/стало». Делим приложение на три слоя:
+  <code>core</code> (инфраструктура), <code>shared</code> (переиспользуемое) и
+  <code>features/*</code> (самодостаточные разделы). Главный принцип:
+  <strong>граница фичи = граница lazy-чанка</strong>.
+</p>
+
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
+
+<section class="moment">
+  <h3 class="section-title">Структура папок</h3>
+  <p class="moment-desc">Каждая папка в <code>features/</code> подключается лениво и попадает в свой бандл.</p>
+  <pre class="code-block"><code>{{ tree }}</code></pre>
+</section>
+
+@for (s of snippets; track s.title) {
+  <section class="moment">
+    <h3 class="section-title">{{ s.title }}</h3>
+    <pre class="code-block code-block-after"><code>{{ s.code }}</code></pre>
+  </section>
+}
+
+<section class="moment">
+  <h3 class="section-title">Тренажёр направлений зависимостей</h3>
+  <p class="moment-desc">
+    Выберите, <em>кто</em> импортирует и <em>кого</em> — проверим, допустимо ли такое направление.
+    Правило простое: фичи изолированы, <code>shared</code> и <code>core</code> ничего не знают о фичах.
+  </p>
+
+  <div class="compare-2">
+    <article class="panel">
+      <h4>Кто импортирует</h4>
+      <div class="stack">
+        @for (n of nodes; track n.id) {
+          <button
+            type="button"
+            class="btn"
+            [class.btn-accent]="from() === n.id"
+            (click)="setFrom(n.id)"
+          >{{ n.label }}</button>
+        }
+      </div>
+    </article>
+
+    <article class="panel">
+      <h4>Кого импортирует</h4>
+      <div class="stack">
+        @for (n of nodes; track n.id) {
+          <button
+            type="button"
+            class="btn"
+            [class.btn-accent]="to() === n.id"
+            (click)="setTo(n.id)"
+          >{{ n.label }}</button>
+        }
+      </div>
+    </article>
+  </div>
+
+  <p class="metric" style="margin-top: 0.75rem">
+    <code>{{ from() }}</code> → <code>{{ to() }}</code>
+    <span class="pill" [class.pill-ok]="verdict().ok" [class.pill-no]="!verdict().ok">
+      {{ verdict().ok ? 'разрешено' : 'запрещено' }}
+    </span>
+  </p>
+  <p class="note">{{ verdict().reason }}</p>
+</section>

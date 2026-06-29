@@ -1,12 +1,90 @@
-<div class="demo-stub">
-  <p class="group">{{ meta.groupOrder }}. {{ meta.groupTitle }}</p>
-  <h2>{{ meta.label }}</h2>
-  <p class="subtitle">{{ meta.subtitle }}</p>
+<h2>{{ meta.label }} — {{ meta.subtitle }}</h2>
+<p class="intro">
+  <code>provideRouter(routes, ...features)</code> заменяет <code>RouterModule.forRoot(routes, options)</code>.
+  Суть разницы: раньше все опции складывались в <strong>один объект флагов</strong>, теперь каждая
+  возможность — это отдельная <code>with*</code>-функция, которую можно подключить или не подключить.
+  Не подключил — её код не попадёт в бандл.
+</p>
 
-  <div class="badge">Coming soon</div>
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
 
-  <p class="hint">
-    Страница подготовлена: свой компонент и роут уже есть. Практические примеры добавим на
-    следующих занятиях.
+@for (m of moments; track m.id) {
+  <section class="moment">
+    <h3 class="section-title">{{ m.title }}</h3>
+    <p class="moment-desc">{{ m.desc }}</p>
+
+    <div class="code-grid">
+      <div class="code-col">
+        <span class="code-label code-label-before">Раньше</span>
+        <pre class="code-block code-block-before"><code>{{ m.beforeCode }}</code></pre>
+      </div>
+      <div class="code-col">
+        <span class="code-label code-label-after">Сейчас</span>
+        <pre class="code-block code-block-after"><code>{{ m.afterCode }}</code></pre>
+      </div>
+    </div>
+
+    @if (m.note) {
+      <p class="note">{{ m.note }}</p>
+    }
+  </section>
+}
+
+<!-- ─── Интерактив ─── -->
+<section class="moment">
+  <h3 class="section-title">Сравнение вживую: включай опции — смотри разницу</h3>
+  <p class="moment-desc">
+    Отмечайте нужные возможности — обе колонки обновляются <em>одновременно</em>.
+    Слева — как это выглядело в объекте <code>forRoot(routes, options)</code>,
+    справа — как это пишется через <code>with*</code>-функции.
+    Главный вопрос: что будет, если убрать <strong>все</strong> галочки?
   </p>
-</div>
+
+  <!-- Галочки -->
+  <div class="feature-grid">
+    @for (f of features; track f.id) {
+      <button
+        type="button"
+        class="btn feature-btn"
+        [class.btn-accent]="isOn(f.id)"
+        (click)="toggle(f.id)"
+      >
+        <span class="feature-check">{{ isOn(f.id) ? '✓' : '+' }}</span>
+        <span class="feature-text">
+          <strong>{{ f.label }}</strong>
+          <span class="feature-desc">{{ f.desc }}</span>
+        </span>
+      </button>
+    }
+  </div>
+
+  <!-- Два кода рядом -->
+  <div class="code-grid feature-compare">
+    <div class="code-col">
+      <span class="code-label code-label-before">Раньше — один объект флагов</span>
+      <pre class="code-block code-block-before"><code>{{ legacyCode() }}</code></pre>
+      <p class="hint" style="margin-top: 0.4rem">
+        Объект разрастается. Включён ли <code>useHash</code>? Непонятно без изучения кода.
+        Даже если флаг не нужен — его код в бандле.
+      </p>
+    </div>
+    <div class="code-col">
+      <span class="code-label code-label-after">Сейчас — композиция with*-функций</span>
+      <pre class="code-block code-block-after"><code>{{ modernCode() }}</code></pre>
+      <p class="hint" style="margin-top: 0.4rem">
+        Убери галочку — функция исчезает из кода и из бандла.
+        Сигнатура говорит сама за себя: видишь список → знаешь, что включено.
+      </p>
+    </div>
+  </div>
+
+  <p class="note">
+    <strong>Итог:</strong> объект флагов не tree-shakeable — весь код опций компилируется в бандл
+    независимо от того, используются они или нет. With*-функции — каждая импортируется отдельно,
+    Angular Compiler вырезает неиспользуемые при сборке.
+  </p>
+</section>

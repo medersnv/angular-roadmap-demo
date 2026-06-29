@@ -1,0 +1,93 @@
+<h2>{{ meta.label }} — {{ meta.subtitle }}</h2>
+<p class="intro">
+  Lazy loading грузит код раздела только когда в него заходят. <code>loadComponent</code> —
+  для одного standalone-экрана, <code>loadChildren</code> — для целой фичи (массив
+  <code>Routes</code> вместо NgModule). Ниже — симуляция: первый заход «скачивает» чанк, повторный
+  берёт его из кэша.
+</p>
+
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
+
+@for (m of moments; track m.id) {
+  <section class="moment">
+    <h3 class="section-title">{{ m.title }}</h3>
+    <p class="moment-desc">{{ m.desc }}</p>
+
+    <div class="code-grid">
+      <div class="code-col">
+        <span class="code-label code-label-before">Раньше</span>
+        <pre class="code-block code-block-before"><code>{{ m.beforeCode }}</code></pre>
+      </div>
+      <div class="code-col">
+        <span class="code-label code-label-after">Сейчас</span>
+        <pre class="code-block code-block-after"><code>{{ m.afterCode }}</code></pre>
+      </div>
+    </div>
+
+    @if (m.note) {
+      <p class="note">{{ m.note }}</p>
+    }
+  </section>
+}
+
+<section class="moment">
+  <h3 class="section-title">Симулятор: ленивая навигация по чанкам</h3>
+  <p class="moment-desc">
+    Нажмите на раздел — первый заход «грузит» чанк (пауза + спиннер), повторный открывается
+    мгновенно. Так роутер и поступает с lazy-маршрутами.
+  </p>
+
+  <div class="compare-2">
+    <article class="panel">
+      <h4>Маршруты</h4>
+      <div class="stack">
+        @for (r of routes; track r.path) {
+          <button
+            type="button"
+            class="btn feature-btn"
+            [class.btn-accent]="current() === r.path"
+            [disabled]="loadingPath()"
+            (click)="navigate(r)"
+          >
+            <span class="feature-text">
+              <strong>/{{ r.path }}</strong>
+              <span class="feature-desc">{{ r.kind }} · {{ r.size }}</span>
+            </span>
+            @if (loadingPath() === r.path) {
+              <span class="pill pill-busy">загрузка…</span>
+            } @else if (isLoaded(r.path)) {
+              <span class="pill pill-ok">в кэше</span>
+            } @else {
+              <span class="pill pill-no">не загружен</span>
+            }
+          </button>
+        }
+      </div>
+      <div class="controls">
+        <button type="button" class="btn" (click)="reset()">сбросить кэш</button>
+      </div>
+    </article>
+
+    <article class="panel panel-after">
+      <h4>Активный экран</h4>
+      <div class="content-host">
+        @if (loadingPath()) {
+          <span class="pill pill-busy">⏳ скачиваем чанк /{{ loadingPath() }}…</span>
+        } @else if (current(); as path) {
+          <strong>Открыт раздел /{{ path }}</strong>
+        } @else {
+          <span class="hint">Выберите раздел слева</span>
+        }
+      </div>
+      <ol class="log">
+        @for (line of log(); track $index) {
+          <li class="log-line">{{ line }}</li>
+        }
+      </ol>
+    </article>
+  </div>
+</section>

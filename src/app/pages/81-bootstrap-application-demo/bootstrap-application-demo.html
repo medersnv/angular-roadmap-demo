@@ -1,0 +1,64 @@
+<h2>{{ meta.label }} — {{ meta.subtitle }}</h2>
+<p class="intro">
+  Жизнь без <code>NgModules</code> начинается с точки входа: вместо
+  <code>bootstrapModule(AppModule)</code> — <code>bootstrapApplication(App, appConfig)</code>.
+  Всё из <code>imports</code> модуля переехало в <code>providers</code> как provide-функции.
+</p>
+
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
+
+@for (m of moments; track m.id) {
+  <section class="moment">
+    <h3 class="section-title">{{ m.title }}</h3>
+    <p class="moment-desc">{{ m.desc }}</p>
+
+    <div class="code-grid">
+      <div class="code-col">
+        <span class="code-label code-label-before">Раньше</span>
+        <pre class="code-block code-block-before"><code>{{ m.beforeCode }}</code></pre>
+      </div>
+      <div class="code-col">
+        <span class="code-label code-label-after">Сейчас</span>
+        <pre class="code-block code-block-after"><code>{{ m.afterCode }}</code></pre>
+      </div>
+    </div>
+
+    @if (m.note) {
+      <p class="note">{{ m.note }}</p>
+    }
+  </section>
+}
+
+<section class="moment">
+  <h3 class="section-title">Интерактив: что куда переехало из AppModule</h3>
+  <p class="moment-desc">
+    Выберите запись из старого <code>imports: []</code> слева — справа появится её современный
+    эквивалент в <code>providers: []</code>.
+  </p>
+
+  <div class="compare-2">
+    <article class="panel panel-before">
+      <h4><span class="tag tag-before">AppModule.imports</span></h4>
+      <div class="stack">
+        @for (r of rows; track r.id) {
+          <button
+            type="button"
+            class="btn row-btn"
+            [class.btn-accent]="r.id === selectedId()"
+            (click)="selectedId.set(r.id)"
+          >{{ r.legacy }}</button>
+        }
+      </div>
+    </article>
+
+    <article class="panel panel-after">
+      <h4><span class="tag tag-after">appConfig.providers</span></h4>
+      <pre class="code-block code-block-after"><code>{{ selected().modern }}</code></pre>
+      <p class="note">{{ selected().note }}</p>
+    </article>
+  </div>
+</section>

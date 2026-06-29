@@ -1,0 +1,82 @@
+<h2>{{ meta.label }} — {{ meta.subtitle }}</h2>
+<p class="intro">
+  Гвард — это уже не класс, а функция <code>CanActivateFn</code>, которая берёт зависимости через
+  <code>inject()</code> и возвращает <code>true</code> либо <code>UrlTree</code> (редирект). Ниже —
+  живой <code>authGuard</code> + <code>roleGuard('admin')</code>: меняйте сессию и пробуйте «зайти».
+</p>
+
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
+
+@for (m of moments; track m.id) {
+  <section class="moment">
+    <h3 class="section-title">{{ m.title }}</h3>
+    <p class="moment-desc">{{ m.desc }}</p>
+
+    <div class="code-grid">
+      <div class="code-col">
+        <span class="code-label code-label-before">Раньше</span>
+        <pre class="code-block code-block-before"><code>{{ m.beforeCode }}</code></pre>
+      </div>
+      <div class="code-col">
+        <span class="code-label code-label-after">Сейчас</span>
+        <pre class="code-block code-block-after"><code>{{ m.afterCode }}</code></pre>
+      </div>
+    </div>
+
+    @if (m.note) {
+      <p class="note">{{ m.note }}</p>
+    }
+  </section>
+}
+
+<section class="moment">
+  <h3 class="section-title">Живой пример: authGuard + roleGuard</h3>
+  <p class="moment-desc">
+    Настройте сессию слева и попробуйте перейти на защищённые маршруты справа. Гвард читает
+    <code>AuthStore</code> через <code>inject()</code> и решает: пустить или редиректнуть.
+  </p>
+
+  <div class="compare-2">
+    <article class="panel">
+      <h4>Сессия (AuthStore)</h4>
+      <p class="metric">Статус: <strong>{{ auth.label() }}</strong></p>
+      <div class="controls">
+        <button type="button" class="btn" (click)="auth.login('user')">войти как user</button>
+        <button type="button" class="btn btn-accent" (click)="auth.login('admin')">войти как admin</button>
+        <button type="button" class="btn" (click)="auth.logout()">выйти</button>
+      </div>
+      <p class="hint">authGuard проверяет вход, roleGuard('admin') — роль.</p>
+    </article>
+
+    <article class="panel panel-after">
+      <h4>Навигация</h4>
+      <div class="controls">
+        @for (t of targets; track t.path) {
+          <button
+            type="button"
+            class="btn"
+            [class.btn-accent]="current() === t.path"
+            (click)="go(t)"
+          >
+            перейти на {{ t.path }}@if (t.needsAdmin) { <span class="pill pill-busy">admin</span> }
+          </button>
+        }
+      </div>
+
+      @if (outcome(); as o) {
+        <p class="metric">
+          <span class="pill" [class.pill-ok]="o.ok" [class.pill-no]="!o.ok">
+            {{ o.ok ? 'разрешено' : 'заблокировано' }}
+          </span>
+        </p>
+        <pre class="code-block" [class.code-block-after]="o.ok" [class.code-block-before]="!o.ok"><code>{{ o.text }}</code></pre>
+      } @else {
+        <p class="hint">Нажмите «перейти», чтобы увидеть решение гварда.</p>
+      }
+    </article>
+  </div>
+</section>

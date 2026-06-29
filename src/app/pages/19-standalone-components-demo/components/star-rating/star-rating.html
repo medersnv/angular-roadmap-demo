@@ -1,0 +1,13 @@
+<div class="stars" (mouseleave)="hovered.set(0)">
+  @for (s of stars; track s) {
+    <button
+      type="button"
+      class="star"
+      [class.star-on]="s <= shown()"
+      (mouseenter)="hovered.set(s)"
+      (click)="pick(s)"
+      [attr.aria-label]="s + ' звёзд'"
+    >★</button>
+  }
+  <span class="stars-value">{{ value() }}/5</span>
+</div>

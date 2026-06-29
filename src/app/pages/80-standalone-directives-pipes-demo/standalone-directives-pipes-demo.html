@@ -1,0 +1,186 @@
+<h2>{{ meta.label }} — {{ meta.subtitle }}</h2>
+<p class="intro">
+  Директивы и пайпы тоже стали <strong>standalone</strong>: их импортируют прямо в
+  <code>imports</code> компонента, а зависимости берут через <code>inject()</code>. Ниже — две живых
+  демонстрации: атрибутивная директива и pure-пайп со счётчиком вызовов.
+</p>
+
+<ul class="essentials">
+  @for (item of essentials; track item) {
+    <li>{{ item }}</li>
+  }
+</ul>
+
+@for (m of moments; track m.id) {
+  <section class="moment">
+    <h3 class="section-title">{{ m.title }}</h3>
+    <p class="moment-desc">{{ m.desc }}</p>
+
+    <div class="code-grid">
+      <div class="code-col">
+        <span class="code-label code-label-before">Раньше</span>
+        <pre class="code-block code-block-before"><code>{{ m.beforeCode }}</code></pre>
+      </div>
+      <div class="code-col">
+        <span class="code-label code-label-after">Сейчас</span>
+        <pre class="code-block code-block-after"><code>{{ m.afterCode }}</code></pre>
+      </div>
+    </div>
+
+    @if (m.note) {
+      <p class="note">{{ m.note }}</p>
+    }
+  </section>
+}
+
+<section class="moment">
+  <h3 class="section-title">Живой пример 1: атрибутивная директива appHighlight</h3>
+  <p class="moment-desc">
+    Директива импортирована в <code>imports</code>, цвет приходит через signal-input с alias.
+    Наведите курсор на строки — фон подсветится выбранным цветом.
+  </p>
+
+  <div class="controls">
+    @for (c of colors; track c) {
+      <button
+        type="button"
+        class="btn"
+        [class.btn-accent]="c === color()"
+        [style.borderColor]="c"
+        (click)="color.set(c)"
+      >
+        {{ c }}
+      </button>
+    }
+  </div>
+
+  <div class="stack">
+    <p class="content-host" [appHighlight]="color()">Наведи на меня — appHighlight в действии</p>
+    <p class="content-host" [appHighlight]="color()">Та же директива, тот же inject(ElementRef)</p>
+    <p class="content-host" [appHighlight]="color()">
+      Никакого NgModule — только imports: [HighlightDirective]
+    </p>
+  </div>
+</section>
+
+<section class="moment">
+  <h3 class="section-title">Живой пример 2: pure vs impure — внешнее состояние</h3>
+  <p class="moment-desc">
+    Оба пайпа фильтруют одинаково. Разница в том, что impure-пайп читает
+    <code>BadgeState</code> через <code>inject()</code> — без передачи аргументом. Смените бейдж
+    кнопкой и посмотрите, какой пайп это увидит.
+  </p>
+
+  <div class="code-grid">
+    <div class="code-col">
+      <span class="code-label code-label-after">pure — только аргументы</span>
+      <pre class="code-block code-block-after"><code>{{ pipeCode }}</code></pre>
+    </div>
+    <div class="code-col">
+      <span class="code-label code-label-before">impure — читает inject(BadgeState)</span>
+      <pre class="code-block code-block-before"><code>{{ impurePipeCode }}</code></pre>
+    </div>
+  </div>
+
+  <div class="controls">
+    <input
+      class="field"
+      type="text"
+      placeholder="фильтр…"
+      [value]="term()"
+      (input)="onSearch($any($event.target).value)"
+    />
+    @for (b of badges; track b) {
+      <button
+        type="button"
+        class="btn"
+        [class.btn-accent]="b === badgeState.badge()"
+        (click)="setBadge(b)"
+      >
+        {{ b === '' ? 'без бейджа' : b }}
+      </button>
+    }
+  </div>
+
+  <div class="compare-2">
+    <article class="panel panel-after">
+      <h4><span class="tag tag-after">pure filterBy</span></h4>
+      <ul class="plain-list">
+        @for (f of fruits() | filterBy: term(); track f) {
+          <li>{{ f }}</li>
+        } @empty {
+          <li class="hint">ничего не найдено</li>
+        }
+      </ul>
+      <p class="hint" style="margin-top: 0.5rem">
+        Аргументы <code>(fruits, term)</code> не изменились →
+        <strong>transform() не вызван</strong>, бейдж не виден.
+      </p>
+    </article>
+
+    <article class="panel panel-before">
+      <h4><span class="tag tag-before">impure filterBy</span></h4>
+      <ul class="plain-list">
+        @for (f of fruits() | impureFilterBy: term(); track $index) {
+          <li>{{ f }}</li>
+        } @empty {
+          <li class="hint">ничего не найдено</li>
+        }
+      </ul>
+      <p class="hint" style="margin-top: 0.5rem">
+        При каждом рендере читает <code>inject(BadgeState).badge()</code> →
+        <strong>бейдж появляется сразу</strong>.
+      </p>
+    </article>
+  </div>
+
+  <p class="note">
+    <strong>Когда нужен impure:</strong> когда пайп должен реагировать на состояние, которое не
+    передать аргументом — глобальный стор, i18n, async-данные. Цена:
+    <code>transform()</code> вызывается при каждом change detection, даже если аргументы не
+    изменились.
+  </p>
+</section>
+
+<section class="moment">
+  <h3 class="section-title">Живой пример 3: Directive Composition API</h3>
+  <p class="moment-desc">
+    <code>hostDirectives</code> позволяет встроить поведение директив прямо в компонент — без
+    упоминания в шаблоне. Компонент <code>CardButton</code> получает <code>appHighlight</code> и
+    <code>appTooltip</code> через <code>hostDirectives</code>, а снаружи их входы доступны как
+    родные атрибуты. Наведите курсор на карточки.
+  </p>
+
+  <div class="code-grid">
+    <div class="code-col">
+      <span class="code-label code-label-before">Раньше — директивы в шаблоне</span>
+      <pre class="code-block code-block-before"><code>{{ compositionBeforeCode }}</code></pre>
+    </div>
+    <div class="code-col">
+      <span class="code-label code-label-after">Сейчас — hostDirectives</span>
+      <pre class="code-block code-block-after"><code>{{ compositionAfterCode }}</code></pre>
+    </div>
+  </div>
+
+  <p class="note">
+    Входы директив, перечисленные в <code>inputs</code>, становятся входами самого компонента.
+    Шаблон <code>CardButton</code> не содержит ни одной директивы — поведение добавлено снаружи, как
+    слой. Это и есть композиция.
+  </p>
+
+  <div class="controls" style="flex-wrap: wrap; gap: 0.75rem; margin-top: 0.75rem">
+    @for (c of cards; track c.label) {
+      <app-card-button
+        [icon]="c.icon"
+        [label]="c.label"
+        [cardColor]="c.color"
+        [cardTooltip]="c.tip"
+      />
+    }
+  </div>
+  <p class="hint" style="margin-top: 0.5rem">
+    Наведите мышь: фон подсвечивается через <code>HighlightDirective</code>, тултип появляется через
+    <code>TooltipDirective</code> — оба поведения встроены через <code>hostDirectives</code>, в
+    шаблоне <code>CardButton</code> их нет.
+  </p>
+</section>

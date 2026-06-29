@@ -55,8 +55,14 @@ export const CURRICULUM: CurriculumGroup[] = [
     order: 4,
     title: 'Standalone Architecture',
     items: [
-      { path: 'standalone-components', label: 'Standalone components', subtitle: 'Компоненты нового типа' },
-      { path: 'standalone-routing', label: 'Routing & architecture', subtitle: 'Роутинг и архитектура' },
+      { path: 'standalone-components', label: 'Standalone-компоненты', subtitle: 'Отказ от NgModules', ready: true },
+      { path: 'standalone-directives-pipes', label: 'Директивы и пайпы', subtitle: 'Standalone-объявления', ready: true },
+      { path: 'bootstrap-application', label: 'bootstrapApplication', subtitle: 'Жизнь без AppModule', ready: true },
+      { path: 'standalone-routing', label: 'provideRouter', subtitle: 'Конфигурация роутера', ready: true },
+      { path: 'lazy-loading', label: 'Lazy loading', subtitle: 'loadComponent / loadChildren', ready: true },
+      { path: 'functional-guards', label: 'Функциональные guard’ы', subtitle: 'CanActivateFn + inject()', ready: true },
+      { path: 'feature-architecture', label: 'Feature-based', subtitle: 'core / shared / features', ready: true },
+      { path: 'route-providers', label: 'Провайдеры на роуте', subtitle: 'Scoped DI на ветку', ready: true },
     ],
   },
   {
